@@ -952,10 +952,125 @@
     }
 
     .lightbox-caption {
-      padding: 0.95rem 1.25rem;
+      padding: 0.85rem 1.25rem;
       border-top: 1px solid var(--border);
       font-size: 0.88rem;
       color: var(--text-muted);
+    }
+
+    .lightbox-ocr-wrap {
+      padding: 0.75rem 1.25rem 1rem;
+      border-top: 1px solid var(--border);
+      background: #0d0f14;
+      display: none;
+    }
+
+    .lightbox-ocr-wrap.has-ocr {
+      display: block;
+    }
+
+    .lightbox-ocr-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.45rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .lightbox-ocr-text {
+      max-height: 130px;
+      overflow-y: auto;
+      background: #08090c;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 0.65rem 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      color: #d1d5db;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+
+    .ocr-box {
+      background: #0b0d11;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      max-height: 110px;
+      overflow-y: auto;
+      line-height: 1.45;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--emerald-soft);
+      color: var(--teal);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 7px;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .copy-btn:hover {
+      background: rgba(16, 185, 129, 0.24);
+      transform: translateY(-1px);
+    }
+
+    .copy-btn.copied {
+      background: var(--emerald);
+      color: #052016;
+      border-color: var(--emerald);
+    }
+
+    .cmd-wrap {
+      position: relative;
+    }
+
+    .cmd-copy-btn {
+      position: absolute;
+      top: 0.45rem;
+      right: 0.45rem;
+      background: rgba(24, 27, 34, 0.92);
+      color: var(--teal);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 0.22rem 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .cmd-copy-btn:hover {
+      background: var(--bg-card-hover);
+    }
+
+    .cmd-copy-btn.copied {
+      background: var(--emerald);
+      color: #052016;
+      border-color: var(--emerald);
     }
 
     @media (max-width: 900px) {
@@ -980,6 +1095,8 @@
         <span>HyperFrames Pro</span>
       </a>
       <nav class="nav-links">
+        <a href="#install-guide">Install Guide</a>
+        <a href="#todays-downloads">Today's OCR (8)</a>
         <a href="#how-to-use">How to Use</a>
         <a href="#features">All Features</a>
         <a href="#remotion-comparison">vs. Remotion + fal.ai</a>
@@ -1003,10 +1120,10 @@
           HyperFrames treats video as a standard web project—HTML, CSS, JavaScript, and GSAP animations—orchestrated by AI coding agents like Framey and Claude Code. Explore the complete 6-phase operational guide, every Pro feature, a deep architectural and cost comparison against <strong>Remotion + fal.ai combined</strong>, 4 technical diagrams, and all 12 real-world production captures.
         </p>
         <div class="hero-actions">
-          <a href="#how-to-use" class="btn btn-primary">Read Step-by-Step Guide</a>
-          <a href="#remotion-comparison" class="btn btn-secondary">HyperFrames vs. Remotion + fal.ai</a>
+          <a href="#install-guide" class="btn btn-primary">Install Guide</a>
+          <a href="#todays-downloads" class="btn btn-secondary">Today's OCR Captures (+8)</a>
+          <a href="#remotion-comparison" class="btn btn-secondary">vs. Remotion + fal.ai</a>
           <a href="#features" class="btn btn-secondary">All Features</a>
-          <a href="#walkthrough" class="btn btn-secondary">12 Captures</a>
         </div>
 
         <div class="stats-grid">
@@ -1023,9 +1140,346 @@
             <div class="stat-label">$0–$100+/mo license + AWS Lambda + per-second fal.ai API</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value accent-coral">12 + 4</div>
-            <div class="stat-label">12 annotated Studio captures &amp; 4 architectural diagrams</div>
+            <div class="stat-value accent-coral">20 + 4</div>
+            <div class="stat-label">20 Studio &amp; OCR captures (+8 today) &amp; 4 architecture diagrams</div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install Guide -->
+    <section id="install-guide">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Quick Start · Copy-Ready Commands</div>
+          <h2>HyperFrames Install Guide (Claude Code, Agents &amp; Local Studio)</h2>
+          <p>
+            Install HyperFrames as a versioned Claude Code plugin, universal AI agent skill (Cursor, VS Code, Copilot, Gemini CLI, OpenCode), or run the local preview studio on <code>localhost:3002</code>. Full standalone reference in <a href="INSTALL.md">INSTALL.md</a>.
+          </p>
+        </div>
+
+        <div class="deploy-grid">
+          <div class="deploy-card">
+            <span class="badge badge-emerald" style="margin-bottom:0.65rem;">1. Claude Code Plugin</span>
+            <h3>Install Versioned Plugin (Recommended)</h3>
+            <p>Add the official HeyGen HyperFrames marketplace and install the plugin, then enable auto-update via <code>/plugin</code> → <strong>Marketplaces</strong>:</p>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">claude plugin marketplace add heygen-com/hyperframes
+claude plugin install hyperframes@hyperframes</pre>
+            </div>
+          </div>
+
+          <div class="deploy-card">
+            <span class="badge badge-indigo" style="margin-bottom:0.65rem;">2. Other AI Coding Agents</span>
+            <h3>Cursor, VS Code, Copilot, Gemini CLI &amp; OpenCode</h3>
+            <p>Install the skill router via <code>npx</code>. When the picker opens (nothing pre-selected), choose <strong>Core Skills</strong>:</p>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">npx skills add heygen-com/hyperframes</pre>
+            </div>
+          </div>
+
+          <div class="deploy-card">
+            <span class="badge badge-coral" style="margin-bottom:0.65rem;">3. Local Studio Preview</span>
+            <h3>Run Local Web Studio (<code>localhost:3002</code>)</h3>
+            <p>Open any HyperFrames project inside <code>~/.hyperframes-studio/</code> to launch the Compositions, Lint, and Gesture editor:</p>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">cd ~/.hyperframes-studio/&lt;project-folder&gt;
+npx hyperframes preview</pre>
+            </div>
+          </div>
+
+          <div class="deploy-card">
+            <span class="badge badge-indigo" style="margin-bottom:0.65rem;">4. Optional Comparison Stack</span>
+            <h3>Install Remotion + fal.ai Combined</h3>
+            <p>Scaffold a React/TypeScript Remotion project with <code>@fal-ai/client</code> and AWS Lambda rendering:</p>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">npx create-video@latest
+npm install @fal-ai/client @remotion/lambda
+export FAL_KEY="your_fal_api_key"</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Today's OCR'd Downloads Section (+8 New Images) -->
+    <section id="todays-downloads">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Today's Downloads · 8 New OCR-Indexed Captures (2026-11-21)</div>
+          <h2>Claude Code + HyperFrames Field Captures (OCR &amp; One-Click Copy)</h2>
+          <p>
+            Eight unique new screenshots extracted and OCR-transcribed from today's Downloads—covering multi-track voiceover timelines, the local <code>localhost:3002</code> web studio, plugin install commands, 120 BPM contact-sheet QA, 2D mascot animation, and Claude Pro token usage. Click any image to zoom and copy its OCR text directly to your clipboard.
+          </p>
+        </div>
+
+        <div class="gallery-grid">
+          <!-- DL 01 -->
+          <article class="shot-card">
+            <div class="shot-thumb lightbox-trigger"
+                 data-title="DL 01 · Multi-Audio 4-Track Timeline &amp; Clean QA Pass"
+                 data-caption="HyperFrames Studio showing 4 simultaneous audio tracks: Bed1–Bed4 music beds ducked to 15% and Vo13/Vo14/Vo18 voiceover tracks boosted to 85%, with Framey reporting 'Check: It passes with no errors'."
+                 data-ocr="Check: It passes with no errors, and I looked at frames from every scene.
+Things I left alone:
+- The second scene shows the note &quot;Freeze the graph at the bottom. Draw a J over it.&quot; on screen. That is a direction to you, so you probably want to delete it.
+- The &quot;verify before air&quot; source lines and the onboarding placeholder are still on screen. COBALTS still has no &quot;A&quot;.
+- I haven't added captions or rendered a file.
+Worked for 3m 49s, 21 files | Checked: no new problems
+Timeline: 00:11 / 10:20 | Bed1–Bed4 (15% fx) | Vo13, Vo14, Vo18 (85% fx)">
+              <img src="downloads/01-multi-audio-timeline-works.jpeg" alt="HyperFrames multi-audio 4-track timeline with Bed1-Bed4 at 15 percent and Vo13-Vo18 at 85 percent" loading="lazy" />
+              <span class="step-pill">NEW 01 / 08</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-emerald">Multi-Audio</span>
+                <span class="shot-filename">01-multi-audio-timeline-works.jpeg</span>
+              </div>
+              <h3>4-Track Multi-Audio Timeline (15% Beds + 85% Voice)</h3>
+              <p>
+                Confirms full multi-track audio layering: music beds (<code>Bed1</code>–<code>Bed4</code>) auto-ducked to <strong>15%</strong> while staggered voiceover tracks (<code>Vo13</code>, <code>Vo14</code>, <code>Vo18</code>) sit cleanly at <strong>85%</strong>, followed by Framey's 21-file zero-error QA report.
+              </p>
+              <div class="ocr-box">Check: It passes with no errors, and I looked at frames from every scene.
+Worked for 3m 49s, 21 files | Checked: no new problems
+Audio: Bed1–Bed4 (15% fx) + Vo13/Vo14/Vo18 (85% fx)</div>
+              <div class="card-actions">
+                <span style="font-size:0.76rem;color:var(--text-dim);">Click image to zoom</span>
+                <button class="copy-btn card-copy-btn" type="button">📋 Copy OCR</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- DL 02 -->
+          <article class="shot-card">
+            <div class="shot-thumb lightbox-trigger"
+                 data-title="DL 02 · Local HyperFrames Web Studio (localhost:3002)"
+                 data-caption="Running npx hyperframes preview opens the HeyGen HyperFrames local web studio at localhost:3002 with Compositions (01-hook to 05-cta, index.html), Lint (54), Record a gesture, and Edit with Framey."
+                 data-ocr="URL: localhost:3002/#project/ttmd-social-agent?v=1&amp;t=0&amp;tab=design&amp;rc=0
+HeyGen HyperFrames | ttmd-social-agent
+Compositions: frames/01-hook, frames/02-reads-data, frames/03-finds-winners, frames/04-proposes-plan, frames/05-cta, index (ROOT index.html)
+Lint: 54 | Tabs: Compositions, Assets, Code, Catalog | Design, Layers, Renders, Variables
+Actions: Record a gesture (R) | Describe a change to the agent (⌘K) | Edit with Framey (New) | Export">
+              <img src="downloads/02-local-studio-compositions-lint.jpeg" alt="HeyGen HyperFrames local web studio running on localhost:3002 showing compositions and timeline" loading="lazy" />
+              <span class="step-pill">NEW 02 / 08</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-indigo">Local Studio</span>
+                <span class="shot-filename">02-local-studio-compositions-lint.jpeg</span>
+              </div>
+              <h3>Local Web Studio (<code>localhost:3002</code>) &amp; Compositions</h3>
+              <p>
+                Shows the local browser editor launched via <code>npx hyperframes preview</code>: modular HTML compositions (<code>01-hook</code> through <code>05-cta</code> + root <code>index.html</code>), built-in <strong>Lint</strong> checker, <strong>Record a gesture (R)</strong>, and <code>⌘K</code> agent prompt.
+              </p>
+              <div class="ocr-box">localhost:3002/#project/ttmd-social-agent
+Compositions: 01-hook, 02-reads-data, 03-finds-winners, 04-proposes-plan, 05-cta, index.html
+Actions: Record a gesture (R) | Describe a change (⌘K) | Edit with Framey</div>
+              <div class="card-actions">
+                <span style="font-size:0.76rem;color:var(--text-dim);">Click image to zoom</span>
+                <button class="copy-btn card-copy-btn" type="button">📋 Copy OCR</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- DL 03 -->
+          <article class="shot-card">
+            <div class="shot-thumb lightbox-trigger"
+                 data-title="DL 03 · Claude Code Usage Overview (3.7B Tokens)"
+                 data-caption="Heavy real-world Claude Code usage stats: 107 sessions, 25,212 messages, 3.7B total tokens across 38 active days using Opus 5.5."
+                 data-ocr="Overview | Models | All 30d 7d
+Sessions: 107 | Messages: 25,212 | Total tokens: 3.7B
+Active days: 38 | Peak hour: 8 AM | Favorite model: Opus 5.5
+You've used ~58988x more tokens than The Great Gatsby.">
+              <img src="downloads/03-claude-usage-overview-tokens.jpeg" alt="Claude Code usage overview showing 107 sessions, 25212 messages, and 3.7B tokens" loading="lazy" />
+              <span class="step-pill">NEW 03 / 08</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-coral">Telemetry</span>
+                <span class="shot-filename">03-claude-usage-overview-tokens.jpeg</span>
+              </div>
+              <h3>Claude Code Power-User Token Overview</h3>
+              <p>
+                Real-world production telemetry from building websites and HyperFrames videos with Claude Code: <strong>107 sessions</strong>, <strong>25,212 messages</strong>, and <strong>3.7B tokens</strong> (~58,988× <em>The Great Gatsby</em>) on <code>Opus 5.5</code>.
+              </p>
+              <div class="ocr-box">Sessions: 107 | Messages: 25,212 | Total tokens: 3.7B
+Active days: 38 | Peak hour: 8 AM | Favorite model: Opus 5.5</div>
+              <div class="card-actions">
+                <span style="font-size:0.76rem;color:var(--text-dim);">Click image to zoom</span>
+                <button class="copy-btn card-copy-btn" type="button">📋 Copy OCR</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- DL 04 -->
+          <article class="shot-card">
+            <div class="shot-thumb lightbox-trigger"
+                 data-title="DL 04 · Official HyperFrames Plugin Install Quick Start"
+                 data-caption="Official Quick Start commands for installing HyperFrames in Claude Code (claude plugin marketplace add heygen-com/hyperframes) and other AI coding agents (npx skills add heygen-com/hyperframes)."
+                 data-ocr="Quick Start — With an AI coding agent
+For Claude Code, install the versioned plugin:
+claude plugin marketplace add heygen-com/hyperframes
+claude plugin install hyperframes@hyperframes
+
+Enable auto-update for the hyperframes marketplace in /plugin -> Marketplaces, then use /hyperframes. See the plugin guide for Copilot, VS Code, Cursor, Gemini CLI, updates, and more.
+
+For other agents (including OpenCode), use:
+npx skills add heygen-com/hyperframes
+The picker opens with nothing pre-selected — the Core Skills group is all you need: the /hyperframes router.">
+              <img src="downloads/04-hyperframes-plugin-install-quickstart.jpeg" alt="HyperFrames Quick Start documentation showing claude plugin marketplace add and npx skills add commands" loading="lazy" />
+              <span class="step-pill">NEW 04 / 08</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-emerald">Install Guide</span>
+                <span class="shot-filename">04-hyperframes-plugin-install-quickstart.jpeg</span>
+              </div>
+              <h3>Official Plugin &amp; Skills Install Quick Start</h3>
+              <p>
+                Captures the exact CLI setup commands for both <strong>Claude Code</strong> (<code>claude plugin marketplace add heygen-com/hyperframes</code>) and universal coding agents like <strong>Cursor, VS Code, Copilot, Gemini CLI, and OpenCode</strong> (<code>npx skills add heygen-com/hyperframes</code>).
+              </p>
+              <div class="ocr-box">claude plugin marketplace add heygen-com/hyperframes
+claude plugin install hyperframes@hyperframes
+npx skills add heygen-com/hyperframes</div>
+              <div class="card-actions">
+                <span style="font-size:0.76rem;color:var(--text-dim);">Click image to zoom</span>
+                <button class="copy-btn card-copy-btn" type="button">📋 Copy OCR</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- DL 05 -->
+          <article class="shot-card">
+            <div class="shot-thumb lightbox-trigger"
+                 data-title="DL 05 · Claude Storyboard Decisions &amp; Reference-Link Prompt"
+                 data-caption="Claude documents its design decisions (contrast override from yellow #E2E200 to magenta #CB3D7A, real screenshots only, single-agent cost optimization) alongside STORYBOARD.md (+147 -0) and the user's reference-video prompt."
+                 data-ocr="05-cta | 7.8–10s | &quot;Less work. Better results.&quot; with the thumbs-up mascot, the Talk to Me Data logo and a talktomedata.com button
+
+Decisions I made along the way:
+- Accent color: the design script picked the site's yellow (#E2E200), which is unreadable on white. I switched it to the magenta from your dashboard charts (#CB3D7A) so the text and highlights match the screenshots.
+- Real screens only: every product visual is your actual screenshots or crops of them, and no numbers were invented.
+- Building the shots: the plugin normally hands each shot to a separate helper agent. I built all five myself to the same rules to keep costs down.
+- Music: you're not signed in to HeyGen and the local music generator isn't installed, so there's no soundtrack. If you send an MP3 later, I can trim it to 10s, fade it in and out, and re-render in about 15 seconds.
+
+Prompt: Figure out what makes the video in this link so good: https://www.threads.com/@ahmedshawki_ai/post/DeNKVigABop ... Use the ambassador (TTMD_agent_v3) in the folder and animate it as the personification of the Agent.">
+              <img src="downloads/05-claude-storyboard-decisions-prompt.jpeg" alt="Claude explaining storyboard design decisions and reference link prompt" loading="lazy" />
+              <span class="step-pill">NEW 05 / 08</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-indigo">Prompting</span>
+                <span class="shot-filename">05-claude-storyboard-decisions-prompt.jpeg</span>
+              </div>
+              <h3>Design Decision Log &amp; Reference-Video Prompting</h3>
+              <p>
+                Shows how Claude self-corrects unreadable contrast (<code>#E2E200</code> → <code>#CB3D7A</code>), preserves authentic product screenshots, and accepts a Threads reference URL to reverse-engineer pacing into <code>STORYBOARD.md</code> (<code>+147 -0</code>).
+              </p>
+              <div class="ocr-box">Accent color: switched #E2E200 -&gt; #CB3D7A for readability.
+Building the shots: built all five myself to keep costs down.
+Prompt: "Figure out what makes the video in this link so good... animate TTMD_agent_v3"</div>
+              <div class="card-actions">
+                <span style="font-size:0.76rem;color:var(--text-dim);">Click image to zoom</span>
+                <button class="copy-btn card-copy-btn" type="button">📋 Copy OCR</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- DL 06 -->
+          <article class="shot-card">
+            <div class="shot-thumb lightbox-trigger"
+                 data-title="DL 06 · 120 BPM Reel &amp; Auto-Generated Contact Sheet QA"
+                 data-caption="Claude renders a 15s 1920x1080 reel cut to a 120 BPM grid and automatically generates sheet.jpg (one frame every 0.5s) to visually inspect every beat."
+                 data-ocr="Ran a command, read sheet.jpg
+TTMD agent reel: 15s, 1920x1080, silent and cut to a 120 BPM grid, plus a contact sheet (one frame every 0.5s)
+Frames visible: HELLO. | POST. | GUESS. | REPEAT. | LET THE AGENT DO IT. | 263K -> 469K -> 474K | BREAKOUTS | TOPICS | TRENDS | BEST TIME | WRITES. DESIGNS. POSTS. | TALK TO ME DATA
+13m 5s · 19.4k tokens · Thinking">
+              <img src="downloads/06-120bpm-reel-contact-sheet-qa.jpeg" alt="15s 120 BPM video reel preview with 0.5s contact sheet grid inside Claude" loading="lazy" />
+              <span class="step-pill">NEW 06 / 08</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-emerald">Visual QA</span>
+                <span class="shot-filename">06-120bpm-reel-contact-sheet-qa.jpeg</span>
+              </div>
+              <h3>120 BPM Reel + <code>sheet.jpg</code> Contact Sheet QA</h3>
+              <p>
+                After rendering a 15-second <code>1920×1080</code> reel cut to a <strong>120 BPM grid</strong> (19.4k tokens), HyperFrames generates a <code>sheet.jpg</code> contact sheet (1 frame every <code>0.5s</code>) so Claude can visually inspect every transition before finalizing.
+              </p>
+              <div class="ocr-box">TTMD agent reel: 15s, 1920x1080, silent and cut to a 120 BPM grid, plus a contact sheet (one frame every 0.5s)
+13m 5s · 19.4k tokens</div>
+              <div class="card-actions">
+                <span style="font-size:0.76rem;color:var(--text-dim);">Click image to zoom</span>
+                <button class="copy-btn card-copy-btn" type="button">📋 Copy OCR</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- DL 07 -->
+          <article class="shot-card">
+            <div class="shot-thumb lightbox-trigger"
+                 data-title="DL 07 · 2D Mascot Cut-Out Animation &amp; Iterative Inspiration Prompt"
+                 data-caption="Claude explains how it separated the waving hand and painted blinking eyelids on a single still image, removed the white background via script, and kept a continuous 15s overlay."
+                 data-ocr="07 Resolve | 12.5–15s | &quot;TALK TO ME DATA.&quot; with a magenta dot, then &quot;YOUR SOCIAL MEDIA AI AGENT — 2026&quot;, &quot;Less work. Better results.&quot; and talktomedata.com, as he waves goodbye.
+
+Things to know:
+- How the ambassador moves: it's a 2D cut-out of your single still image. I separated the waving hand into its own piece so the wave is real, and the blinks are painted eyelids over the eyes.
+- Background removal: I removed the white background with my own script.
+- One file: I built the reel as a single composition so the overlay never breaks between chapters.
+- If you have a track at roughly 120–128 BPM, send it over and I'll lay it in so each chapter cut hits a beat.
+
+Follow-up prompt: I now want you to draw inspiration from this video: https://x.com/code_kartik/status/2107195332098699425 Make the video shorter - about 15 to 20 seconds... Make the CTA &quot;Sign up for Free at Talk to me Data&quot;">
+              <img src="downloads/07-2d-mascot-animation-and-inspiration-prompt.jpeg" alt="Claude explaining 2D cut-out mascot animation, background removal, and X video inspiration prompt" loading="lazy" />
+              <span class="step-pill">NEW 07 / 08</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-indigo">Animation</span>
+                <span class="shot-filename">07-2d-mascot-animation-and-inspiration-prompt.jpeg</span>
+              </div>
+              <h3>2D Mascot Cut-Out Rigging &amp; X Inspiration Prompt</h3>
+              <p>
+                Demonstrates creative programmatic rigging from a single still PNG: Claude isolated the waving hand as a separate DOM piece, animated painted blinking eyelids, ran a background-removal script, and accepted an X video link for the next 15–20s iteration.
+              </p>
+              <div class="ocr-box">How the ambassador moves: separated the waving hand into its own piece + painted eyelids for blinks.
+Prompt: "draw inspiration from https://x.com/code_kartik/status/2107195332098699425"</div>
+              <div class="card-actions">
+                <span style="font-size:0.76rem;color:var(--text-dim);">Click image to zoom</span>
+                <button class="copy-btn card-copy-btn" type="button">📋 Copy OCR</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- DL 08 -->
+          <article class="shot-card">
+            <div class="shot-thumb lightbox-trigger"
+                 data-title="DL 08 · Claude Pro Usage Limits After Building Videos"
+                 data-caption="Claude Pro Usage panel showing only 39% of current session and 40% of weekly quota used after generating multiple HyperFrames videos, with $100 of $100 cloud session credits untouched."
+                 data-ocr="Your usage — Pro
+On track. You should reach Monday's reset with room to spare.
+Current session: 39% used (Resets at 2:50 PM)
+This week: 40% used (Resets Monday 7:00 PM)
+Limit resets: Full reset (Expires Oct 22)
+Cloud session credits — Included credit: $100 of $100 left
+Usage credits: £0">
+              <img src="downloads/08-claude-pro-usage-limits-check.jpeg" alt="Claude Pro usage settings showing 39 percent session usage and 40 percent weekly usage" loading="lazy" />
+              <span class="step-pill">NEW 08 / 08</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-coral">Cost Proof</span>
+                <span class="shot-filename">08-claude-pro-usage-limits-check.jpeg</span>
+              </div>
+              <h3>Real Claude Pro Usage After Multi-Video Production</h3>
+              <p>
+                Proves how lightweight open-source HyperFrames + Claude Code is on token budgets: after generating multiple full promotional reels, usage stayed at just <strong>39% session / 40% weekly</strong> with <strong>£0</strong> extra usage credits spent.
+              </p>
+              <div class="ocr-box">Current session: 39% used | This week: 40% used
+Included credit: $100 of $100 left | Usage credits: £0</div>
+              <div class="card-actions">
+                <span style="font-size:0.76rem;color:var(--text-dim);">Click image to zoom</span>
+                <button class="copy-btn card-copy-btn" type="button">📋 Copy OCR</button>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -1894,6 +2348,7 @@ git push origin main</pre>
     <div class="container footer-inner">
       <div>HyperFrames Pro Documentation, Complete Feature Reference &amp; Remotion + fal.ai Comparison.</div>
       <div>
+        <a href="INSTALL.md">INSTALL.md</a> ·
         <a href="README.md">README.md</a> ·
         <a href="handoff-claude.md">handoff-claude.md</a> ·
         <a href="https://github.com/rifaterdemsahin/hyperframes-pro" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
@@ -1907,6 +2362,7 @@ git push origin main</pre>
       <div class="lightbox-bar">
         <div class="lightbox-title" id="lbTitle">Image Preview</div>
         <div class="lightbox-controls">
+          <button class="copy-btn" id="lbCopy" type="button" aria-label="Copy text to clipboard">📋 Copy Text</button>
           <button class="lb-btn" id="lbPrev" aria-label="Previous image">← Prev</button>
           <button class="lb-btn" id="lbNext" aria-label="Next image">Next →</button>
           <button class="lb-btn" id="lbClose" aria-label="Close modal">Esc ✕</button>
@@ -1916,13 +2372,74 @@ git push origin main</pre>
         <img id="lbImg" src="" alt="" />
       </div>
       <div class="lightbox-caption" id="lbCaption"></div>
+      <div class="lightbox-ocr-wrap" id="lbOcrWrap">
+        <div class="lightbox-ocr-header">
+          <span>Extracted OCR Text</span>
+          <span style="color:var(--text-dim);font-size:0.7rem;">Click "Copy Text" above to copy to clipboard</span>
+        </div>
+        <pre class="lightbox-ocr-text" id="lbOcrText"></pre>
+      </div>
     </div>
   </div>
 
   <script>
+    // Reliable clipboard helper with fallback
+    async function copyToClipboard(text, btn, defaultLabel) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = defaultLabel;
+          btn.classList.remove('copied');
+        }, 1800);
+      } catch (err) {
+        btn.textContent = 'Copy failed';
+        setTimeout(() => { btn.textContent = defaultLabel; }, 1800);
+      }
+    }
+
+    // Attach copy buttons to every code block
+    document.querySelectorAll('pre.cmd-block').forEach((pre) => {
+      if (!pre.parentElement.classList.contains('cmd-wrap')) {
+        const wrap = document.createElement('div');
+        wrap.className = 'cmd-wrap';
+        pre.parentNode.insertBefore(wrap, pre);
+        wrap.appendChild(pre);
+      }
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cmd-copy-btn';
+      btn.textContent = '📋 Copy';
+      btn.addEventListener('click', () => copyToClipboard(pre.textContent.trim(), btn, '📋 Copy'));
+      pre.parentElement.appendChild(btn);
+    });
+
+    // Attach copy OCR buttons on today's OCR cards
+    document.querySelectorAll('.card-copy-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.shot-card');
+        const trigger = card.querySelector('.lightbox-trigger');
+        const text = trigger.dataset.ocr || trigger.dataset.caption || '';
+        copyToClipboard(text, btn, '📋 Copy OCR');
+      });
+    });
+
     // Category filtering
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const shotCards = document.querySelectorAll('.shot-card');
+    const shotCards = document.querySelectorAll('#galleryGrid .shot-card');
 
     filterButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -1939,13 +2456,17 @@ git push origin main</pre>
       });
     });
 
-    // Lightbox viewer for all 4 architecture diagrams and all 12 captures
+    // Lightbox viewer for all 4 architecture diagrams + 8 today's OCR captures + 12 walkthrough captures (24 total)
     const triggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
     const lightbox = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const lbTitle = document.getElementById('lbTitle');
     const lbCaption = document.getElementById('lbCaption');
+    const lbOcrWrap = document.getElementById('lbOcrWrap');
+    const lbOcrText = document.getElementById('lbOcrText');
+    const lbCopy = document.getElementById('lbCopy');
     let currentIndex = 0;
+    let currentCopyPayload = '';
 
     function openLightbox(index) {
       currentIndex = (index + triggers.length) % triggers.length;
@@ -1955,6 +2476,19 @@ git push origin main</pre>
       lbImg.alt = img.alt;
       lbTitle.textContent = el.dataset.title || img.alt;
       lbCaption.textContent = el.dataset.caption || '';
+      const ocr = el.dataset.ocr || '';
+      if (ocr) {
+        lbOcrText.textContent = ocr;
+        lbOcrWrap.classList.add('has-ocr');
+        currentCopyPayload = ocr;
+        lbCopy.textContent = '📋 Copy OCR Text';
+      } else {
+        lbOcrText.textContent = '';
+        lbOcrWrap.classList.remove('has-ocr');
+        currentCopyPayload = `${lbTitle.textContent}\n${lbCaption.textContent}`.trim();
+        lbCopy.textContent = '📋 Copy Caption';
+      }
+      lbCopy.classList.remove('copied');
       lightbox.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -1968,6 +2502,10 @@ git push origin main</pre>
       el.addEventListener('click', () => openLightbox(idx));
     });
 
+    lbCopy.addEventListener('click', () => {
+      const label = lbOcrWrap.classList.contains('has-ocr') ? '📋 Copy OCR Text' : '📋 Copy Caption';
+      copyToClipboard(currentCopyPayload, lbCopy, label);
+    });
     document.getElementById('lbClose').addEventListener('click', closeLightbox);
     document.getElementById('lbPrev').addEventListener('click', () => openLightbox(currentIndex - 1));
     document.getElementById('lbNext').addEventListener('click', () => openLightbox(currentIndex + 1));
