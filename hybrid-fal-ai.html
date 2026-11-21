@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HyperFrames Pro (£19) + Local HyperFrames with fal.ai — Is It Possible?</title>
+  <meta name="description" content="Yes! Complete architectural guide, working code, cost math, and step-by-step setup for combining HyperFrames Pro (£19/$25) with local HyperFrames CLI, Claude Code, and fal.ai." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0c0d10;
+      --bg-elevated: #14161b;
+      --bg-card: #181b22;
+      --bg-card-hover: #1e222b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --emerald: #10b981;
+      --emerald-soft: rgba(16, 185, 129, 0.14);
+      --teal: #2dd4bf;
+      --coral: #f97316;
+      --coral-soft: rgba(249, 115, 22, 0.14);
+      --indigo: #818cf8;
+      --indigo-soft: rgba(129, 140, 248, 0.14);
+      --radius: 14px;
+      --radius-sm: 8px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 12% 0%, rgba(16, 185, 129, 0.10), transparent 40%),
+        radial-gradient(circle at 88% 8%, rgba(129, 140, 248, 0.09), transparent 40%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    code, pre, .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12, 13, 16, 0.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    .brand:hover { text-decoration: none; }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, var(--emerald), var(--teal));
+      display: grid;
+      place-items: center;
+      color: #062118;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--teal);
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .hero {
+      padding: 4.25rem 0 3.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .verdict-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: var(--emerald-soft);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: var(--teal);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      max-width: 900px;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--teal), var(--indigo));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.72rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .btn-primary { background: var(--emerald); color: #052016; }
+    .btn-primary:hover { background: #14cf91; }
+    .btn-secondary { background: var(--bg-card); color: var(--text); border: 1px solid var(--border-strong); }
+    .btn-secondary:hover { background: var(--bg-card-hover); }
+
+    .verdict-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.10), rgba(129, 140, 248, 0.08));
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .verdict-item strong {
+      display: block;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .verdict-item span {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    section {
+      padding: 3.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--emerald);
+      margin-bottom: 0.45rem;
+    }
+
+    h2 {
+      font-size: clamp(1.55rem, 2.6vw, 2.15rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 780px;
+      margin-bottom: 2rem;
+      font-size: 0.96rem;
+    }
+
+    .badge {
+      display: inline-block;
+      width: fit-content;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.24rem 0.58rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.6rem;
+    }
+    .badge-emerald { background: var(--emerald-soft); color: var(--teal); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-indigo { background: var(--indigo-soft); color: #a5b4fc; border: 1px solid rgba(129, 140, 248, 0.3); }
+    .badge-coral { background: var(--coral-soft); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+
+    /* Hybrid Architecture Flow */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .flow-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      position: relative;
+    }
+
+    .flow-card h3 { font-size: 1.02rem; margin-bottom: 0.45rem; }
+    .flow-card p { font-size: 0.87rem; color: var(--text-muted); }
+
+    /* Step Cards */
+    .steps-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+    }
+
+    .step-row {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .step-row h3 { font-size: 1.12rem; margin-bottom: 0.45rem; }
+    .step-row p { font-size: 0.9rem; color: var(--text-muted); }
+
+    .cmd-wrap { position: relative; }
+
+    pre.cmd-block {
+      background: #0a0b0e;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.95rem 1rem;
+      font-size: 0.78rem;
+      color: #e5e7eb;
+      overflow-x: auto;
+      line-height: 1.55;
+    }
+
+    .cmd-copy-btn {
+      position: absolute;
+      top: 0.45rem;
+      right: 0.45rem;
+      background: rgba(24, 27, 34, 0.92);
+      color: var(--teal);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 0.22rem 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .cmd-copy-btn:hover { background: var(--bg-card-hover); }
+    .cmd-copy-btn.copied { background: var(--emerald); color: #052016; border-color: var(--emerald); }
+
+    /* Table */
+    .table-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
+    th, td { text-align: left; padding: 0.78rem 0.7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--text-muted); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .hl-emerald { color: var(--teal); font-weight: 600; }
+    .hl-indigo { color: #a5b4fc; font-weight: 600; }
+
+    /* Caveats */
+    .caveat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .caveat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--coral);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+    }
+    .caveat-card h3 { font-size: 1rem; margin-bottom: 0.45rem; }
+    .caveat-card p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* Proof Visuals */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .proof-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .proof-card img { width: 100%; display: block; border-bottom: 1px solid var(--border); }
+    .proof-body { padding: 1.1rem 1.25rem; }
+    .proof-body h3 { font-size: 0.98rem; margin-bottom: 0.35rem; }
+    .proof-body p { font-size: 0.85rem; color: var(--text-muted); }
+
+    footer {
+      padding: 2.5rem 0 3.5rem;
+      color: var(--text-dim);
+      font-size: 0.86rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    @media (max-width: 860px) {
+      .step-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">&lt;/&gt;</span>
+        <span>HyperFrames Pro</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">← Main Showcase</a>
+        <a href="#why-it-works" class="active">Why It Works</a>
+        <a href="#setup-steps">5-Step Setup</a>
+        <a href="#cost-matrix">Cost Comparison</a>
+        <a href="#gotchas">Gotchas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="verdict-pill">✓ SHORT ANSWER: YES — 100% POSSIBLE &amp; THE OPTIMAL HYBRID STACK</div>
+        <h1>HyperFrames Pro (£19 / $25) + <span>Local HyperFrames with fal.ai</span></h1>
+        <p class="lead">
+          Can you pay <strong>£19 / $25/mo</strong> for HyperFrames Pro (for unlimited cloud exports, visual pin-comment editing, and 25k starter credits) <em>and</em> run <strong>HyperFrames locally with Claude Code + fal.ai</strong> on the exact same project folder? <strong>Yes.</strong> Because HyperFrames Studio saves every project as plain local web files inside <code>~/.hyperframes-studio/</code>, you get the best of both worlds with zero credit ceiling and zero local CPU render lockup.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#setup-steps" class="btn btn-primary">Follow the 5-Step Hybrid Setup</a>
+          <a href="#cost-matrix" class="btn btn-secondary">Compare 3 Stacks</a>
+          <a href="index.html" class="btn btn-secondary">← Back to Main Showcase</a>
+        </div>
+
+        <div class="verdict-box">
+          <div class="verdict-item">
+            <strong>1. Keep £19 Pro for Cloud Renders</strong>
+            <span>Unlimited 1080p/4K MP4 cloud exports, Click-and-Change UI, Pin Comments, and 25,000 monthly starter credits.</span>
+          </div>
+          <div class="verdict-item">
+            <strong>2. Use Local Claude Code for Edits</strong>
+            <span>Run <code>claude plugin install hyperframes@hyperframes</code> inside <code>~/.hyperframes-studio/</code> using your Claude Pro plan (£0 extra HyperFrames credits).</span>
+          </div>
+          <div class="verdict-item">
+            <strong>3. Use fal.ai When Credits Run Out</strong>
+            <span>Generate unlimited B-roll (Kling 3.0, Veo 3.1, Wan, MiniMax), Flux images, and ElevenLabs voiceovers straight into the project folder at pay-per-second API rates.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why It Works Architecturally -->
+    <section id="why-it-works">
+      <div class="container">
+        <div class="section-eyebrow">Architectural Proof</div>
+        <h2>Why HyperFrames Pro + Local fal.ai Works Seamlessly</h2>
+        <p class="section-desc">
+          Unlike closed cloud video editors, HyperFrames Studio stores your entire video locally as standard HTML, CSS, JavaScript, and media files inside <code>~/.hyperframes-studio/&lt;project&gt;/</code>. Any media file generated by <strong>fal.ai</strong> and saved into that folder becomes a first-class asset in both local preview (<code>localhost:3002</code>) and HyperFrames Pro Cloud Export.
+        </p>
+
+        <div class="flow-grid">
+          <div class="flow-card">
+            <span class="badge badge-coral">Step 1 · fal.ai Local API</span>
+            <h3>Generate Media Without Credit Caps</h3>
+            <p>Call <code>@fal-ai/client</code> from Node/Python or Claude Code to generate Kling/Veo/MiniMax clips, Flux visuals, or ElevenLabs TTS and save directly to <code>./assets/</code>.</p>
+          </div>
+          <div class="flow-card">
+            <span class="badge badge-indigo">Step 2 · Shared Local Folder</span>
+            <h3><code>~/.hyperframes-studio/</code></h3>
+            <p>All files—<code>index.html</code>, <code>boards/</code>, <code>STORYBOARD.md</code>, <code>CLAUDE.md</code>, and your new fal.ai <code>assets/</code>—live in one Git-friendly directory.</p>
+          </div>
+          <div class="flow-card">
+            <span class="badge badge-emerald">Step 3 · Local Claude Code</span>
+            <h3>Zero-Credit Code &amp; Preview</h3>
+            <p>Claude Code wires the fal.ai assets into GSAP timelines and HTML layers. Verify instantly via <code>npx hyperframes preview</code> on <code>localhost:3002</code>.</p>
+          </div>
+          <div class="flow-card">
+            <span class="badge badge-emerald">Step 4 · Pro Cloud Export</span>
+            <h3>Unlimited 0%-CPU Cloud Renders</h3>
+            <p>Switch back to HyperFrames Pro Studio and hit <strong>Export → Render on: Cloud</strong>. Your £19/$25 plan offloads the 1080p/4K MP4 encode completely.</p>
+          </div>
+        </div>
+
+        <div class="proof-grid">
+          <div class="proof-card">
+            <img src="assets/arch-claude-handoff.jpg" alt="HyperFrames Studio and Claude Code shared local folder architecture" loading="lazy" />
+            <div class="proof-body">
+              <h3>Shared Local Project Hub</h3>
+              <p>Studio Desktop and Claude Code read/write the exact same <code>~/.hyperframes-studio/</code> folder in real time.</p>
+            </div>
+          </div>
+          <div class="proof-card">
+            <img src="credit-ends.jpeg" alt="HyperFrames Out of credits notice after 4827 credits" loading="lazy" />
+            <div class="proof-body">
+              <h3>Bypassing the "Out of Credits" Wall</h3>
+              <p>When Pro's 25k credits deplete mid-project (like after 4,827 credits on a 17.5-min voiceover run), switch to local Claude Code + fal.ai instead of stopping.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-Step Setup -->
+    <section id="setup-steps">
+      <div class="container">
+        <div class="section-eyebrow">Copy-Paste Implementation</div>
+        <h2>5-Step Setup: HyperFrames Pro (£19) + Local fal.ai</h2>
+        <p class="section-desc">
+          Follow these five steps to wire fal.ai media generation directly into any HyperFrames Pro project directory on macOS/Linux.
+        </p>
+
+        <div class="steps-stack">
+          <!-- Step 1 -->
+          <div class="step-row">
+            <div>
+              <span class="badge badge-emerald">Step 01</span>
+              <h3>Install the HyperFrames Plugin in Claude Code</h3>
+              <p>Install the official HeyGen HyperFrames plugin once so Claude Code understands <code>index.html</code>, <code>boards/</code>, and GSAP timeline rules natively.</p>
+            </div>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">claude plugin marketplace add heygen-com/hyperframes
+claude plugin install hyperframes@hyperframes
+# Or for Cursor / VS Code / Copilot / Gemini CLI:
+npx skills add heygen-com/hyperframes</pre>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-row">
+            <div>
+              <span class="badge badge-indigo">Step 02</span>
+              <h3>Open Your Pro Project Folder &amp; Add <code>@fal-ai/client</code></h3>
+              <p>In HyperFrames Pro Studio, click the folder pill → <strong>Copy folder path</strong>, then install the fal.ai JS SDK and set your <code>FAL_KEY</code>.</p>
+            </div>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">cd ~/.hyperframes-studio/&lt;your-project-folder&gt;
+npm install @fal-ai/client
+export FAL_KEY="your_fal_api_key_here"</pre>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-row">
+            <div>
+              <span class="badge badge-coral">Step 03</span>
+              <h3>Generate Video/Image/Voice Assets via fal.ai into <code>assets/</code></h3>
+              <p>Drop this reusable 20-line script (<code>scripts/gen-fal.mjs</code>) into your project so Claude Code can generate pay-per-second B-roll or images directly into your HyperFrames folder.</p>
+            </div>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">// scripts/gen-fal.mjs
+import { fal } from "@fal-ai/client";
+import fs from "node:fs";
+
+const result = await fal.subscribe("fal-ai/kling-video/v3/standard/text-to-video", {
+  input: {
+    prompt: "Clean minimalist developer cockpit HUD animating charts, 1080p",
+    duration: "5",
+    aspect_ratio: "16:9"
+  }
+});
+
+const url = result.data.video.url;
+const buf = Buffer.from(await (await fetch(url)).arrayBuffer());
+fs.mkdirSync("assets", { recursive: true });
+fs.writeFileSync("assets/fal-cockpit-broll.mp4", buf);
+console.log("Saved assets/fal-cockpit-broll.mp4");</pre>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step-row">
+            <div>
+              <span class="badge badge-indigo">Step 04</span>
+              <h3>Wire Assets in Claude Code &amp; Preview Locally</h3>
+              <p>Ask Claude Code to reference <code>assets/fal-cockpit-broll.mp4</code> in your scene HTML/GSAP composition and verify immediately on <code>localhost:3002</code>.</p>
+            </div>
+            <div class="cmd-wrap">
+              <pre class="cmd-block"># Inside Claude Code:
+/hyperframes:hyperframes
+"Place assets/fal-cockpit-broll.mp4 as the background layer in S04
+ with a 0.6s fade-in and keep voiceover track Vo04 at 85%."
+
+# Preview locally in browser (localhost:3002):
+npx hyperframes preview</pre>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="step-row">
+            <div>
+              <span class="badge badge-emerald">Step 05</span>
+              <h3>Export on HyperFrames Pro Cloud (0% Local CPU)</h3>
+              <p>Switch back to the <strong>HyperFrames Pro Studio</strong> desktop app—your new fal.ai assets and Claude edits appear live. Click <strong>Export → Render on: Cloud (1080p / 4K MP4)</strong> to use your unlimited Pro cloud exports!</p>
+            </div>
+            <div class="cmd-wrap">
+              <pre class="cmd-block"># Summary of what paid for what:
+# - Scene code &amp; GSAP edits:  Claude Code (existing Claude Pro plan = £0 extra)
+# - Extra B-roll / voice:     fal.ai pay-per-second (~$0.05–$0.30/s)
+# - Final 1080p/4K MP4:       HyperFrames Pro Cloud Export (Unlimited, £19/mo)</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-Way Stack Comparison -->
+    <section id="cost-matrix">
+      <div class="container">
+        <div class="section-eyebrow">Economics &amp; Capability Matrix</div>
+        <h2>Pro Only vs. Local + fal.ai Only vs. Hybrid (£19 Pro + Local fal.ai)</h2>
+        <p class="section-desc">
+          Why combining £19/$25 HyperFrames Pro with local Claude Code + fal.ai beats running either stack alone for high-volume creators and contractors.
+        </p>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Capability</th>
+                <th>HyperFrames Pro Only (£19 / $25)</th>
+                <th>Local Open-Source + fal.ai Only</th>
+                <th>Hybrid: £19 Pro + Local fal.ai (Recommended)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Monthly Base Cost</strong></td>
+                <td>£19 / $25 flat</td>
+                <td>$0 base + fal.ai usage</td>
+                <td class="hl-emerald">£19 / $25 + pay-as-you-go fal.ai overflow only</td>
+              </tr>
+              <tr>
+                <td><strong>Media Credit Ceiling</strong></td>
+                <td>25,000 credits/mo (pauses when empty)</td>
+                <td>Uncapped (pay-per-second)</td>
+                <td class="hl-emerald">25k included + uncapped fal.ai overflow</td>
+              </tr>
+              <tr>
+                <td><strong>Final MP4 Cloud Rendering</strong></td>
+                <td>Unlimited cloud exports (0% CPU)</td>
+                <td>Local CPU/GPU lockup (10–13 min/pass)</td>
+                <td class="hl-emerald">Unlimited Pro Cloud Exports (0% local CPU!)</td>
+              </tr>
+              <tr>
+                <td><strong>Visual Pin Comments &amp; UI</strong></td>
+                <td>Full Studio UI + Pin Batching + Share</td>
+                <td>Local preview (<code>localhost:3002</code>) only</td>
+                <td class="hl-emerald">Full Pro Studio UI + Local CLI + Claude Code</td>
+              </tr>
+              <tr>
+                <td><strong>Model Selection</strong></td>
+                <td>Seedance 2.5, MiniMax, HeyGen, ElevenLabs</td>
+                <td>Full fal.ai catalog (Kling 3.0, Veo 3.1, Wan, Flux)</td>
+                <td class="hl-emerald">ALL Pro models + ALL fal.ai models combined</td>
+              </tr>
+              <tr>
+                <td><strong><code>/reverse-any-video</code> &amp; Brand Kits</strong></td>
+                <td>Included</td>
+                <td>Not included</td>
+                <td class="hl-emerald">Included</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practical Gotchas -->
+    <section id="gotchas">
+      <div class="container">
+        <div class="section-eyebrow">Practical Engineering Notes</div>
+        <h2>3 Things to Watch Out For in the Hybrid Setup</h2>
+        <p class="section-desc">
+          Real-world details so your fal.ai-generated files sync cleanly with HyperFrames Pro Studio and cloud exports.
+        </p>
+
+        <div class="caveat-grid">
+          <div class="caveat-card">
+            <h3>1. Always Save fal.ai Outputs Inside the Project Folder</h3>
+            <p>Never hotlink temporary fal.ai CDN URLs directly in <code>index.html</code> (they can expire). Always download generated <code>.mp4</code>, <code>.png</code>, or <code>.wav</code> files into a relative <code>assets/</code> subfolder inside <code>~/.hyperframes-studio/&lt;project&gt;/</code> so Cloud Export bundles them reliably.</p>
+          </div>
+          <div class="caveat-card">
+            <h3>2. Avoid Simultaneous Edits While Framey Is Locked</h3>
+            <p>When HyperFrames Studio shows <code>Working | Locked</code> on the timeline, pause local Claude Code edits until Framey finishes writing to avoid file conflicts on <code>index.html</code> or <code>hyperframes.json</code>.</p>
+          </div>
+          <div class="caveat-card">
+            <h3>3. Captions &amp; Timestamps for fal.ai Voiceovers</h3>
+            <p>Built-in HeyGen voiceovers automatically create <code>.transcript.json</code> files for subtitles. When generating TTS via fal.ai/ElevenLabs locally, ask Claude to run fal's Whisper timestamp endpoint to emit a matching JSON transcript so captions stay word-synced.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>HyperFrames Pro (£19) + Local fal.ai Hybrid Architecture Guide</div>
+      <div>
+        <a href="index.html">Main Showcase</a> ·
+        <a href="INSTALL.md">INSTALL.md</a> ·
+        <a href="README.md">README.md</a> ·
+        <a href="https://github.com/rifaterdemsahin/hyperframes-pro" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    async function copyToClipboard(text, btn) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋 Copy';
+          btn.classList.remove('copied');
+        }, 1800);
+      } catch (e) {
+        btn.textContent = 'Copy failed';
+      }
+    }
+
+    document.querySelectorAll('pre.cmd-block').forEach((pre) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cmd-copy-btn';
+      btn.textContent = '📋 Copy';
+      btn.addEventListener('click', () => copyToClipboard(pre.textContent.trim(), btn));
+      pre.parentElement.appendChild(btn);
+    });
+  </script>
+</body>
+</html>

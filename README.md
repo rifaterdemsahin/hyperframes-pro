@@ -1,6 +1,7 @@
 # HyperFrames Pro — Complete Usage Guide, All Features & Remotion + fal.ai Comparison
 
 > **Live Interactive Showcase (GitHub Pages):** https://rifaterdemsahin.github.io/hyperframes-pro/
+> **Hybrid Guide (£19 Pro + Local fal.ai):** https://rifaterdemsahin.github.io/hyperframes-pro/hybrid-fal-ai.html ([`hybrid-fal-ai.html`](hybrid-fal-ai.html))
 > **Quick Install Guide:** See [`INSTALL.md`](INSTALL.md) (`claude plugin marketplace add heygen-com/hyperframes` & `npx skills add heygen-com/hyperframes`)
 
 ## Overview
