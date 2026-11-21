@@ -664,15 +664,19 @@ npx hyperframes preview</pre>
 
         <div class="caveat-grid">
           <div class="caveat-card">
-            <h3>1. Always Save fal.ai Outputs Inside the Project Folder</h3>
+            <h3>1. Avoid Running Claude Over HeyGen API Balance ($2.81 → $4.47 Warning)</h3>
+            <p>Routing Claude turns through HeyGen's developer API balance is expensive—a single 5.5-minute Short jumped spend from <strong>$2.81 to $4.47 of $4.50</strong>. Always execute your Claude edits <strong>locally via Claude Code</strong> (using your existing Claude Pro subscription at £0 extra) and only use HeyGen/fal.ai for media assets and Cloud Export.</p>
+          </div>
+          <div class="caveat-card">
+            <h3>2. Always Save fal.ai Outputs Inside the Project Folder</h3>
             <p>Never hotlink temporary fal.ai CDN URLs directly in <code>index.html</code> (they can expire). Always download generated <code>.mp4</code>, <code>.png</code>, or <code>.wav</code> files into a relative <code>assets/</code> subfolder inside <code>~/.hyperframes-studio/&lt;project&gt;/</code> so Cloud Export bundles them reliably.</p>
           </div>
           <div class="caveat-card">
-            <h3>2. Avoid Simultaneous Edits While Framey Is Locked</h3>
+            <h3>3. Avoid Simultaneous Edits While Framey Is Locked</h3>
             <p>When HyperFrames Studio shows <code>Working | Locked</code> on the timeline, pause local Claude Code edits until Framey finishes writing to avoid file conflicts on <code>index.html</code> or <code>hyperframes.json</code>.</p>
           </div>
           <div class="caveat-card">
-            <h3>3. Captions &amp; Timestamps for fal.ai Voiceovers</h3>
+            <h3>4. Captions &amp; Timestamps for fal.ai Voiceovers</h3>
             <p>Built-in HeyGen voiceovers automatically create <code>.transcript.json</code> files for subtitles. When generating TTS via fal.ai/ElevenLabs locally, ask Claude to run fal's Whisper timestamp endpoint to emit a matching JSON transcript so captions stay word-synced.</p>
           </div>
         </div>
