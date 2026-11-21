@@ -2,7 +2,8 @@
   const PAGES = [
     { file: 'index.html', label: '🏠 Showcase', short: 'Showcase' },
     { file: 'hybrid-fal-ai.html', label: '💰 £19 + fal.ai', short: '£19 + fal.ai' },
-    { file: 'reverse-engineering.html', label: '🎬 Reverse Eng', short: 'Reverse Eng' }
+    { file: 'reverse-engineering.html', label: '🎬 Reverse Eng', short: 'Reverse Eng' },
+    { file: 'top-10-repos.html', label: '🔥 Top 10 Repos', short: 'Top 10 Repos' }
   ];
 
   const path = window.location.pathname;

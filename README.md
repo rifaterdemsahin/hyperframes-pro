@@ -3,6 +3,7 @@
 > **Live Interactive Showcase (GitHub Pages):** https://rifaterdemsahin.github.io/hyperframes-pro/
 > **Official HyperFrames Repo & Plugin:** https://github.com/heygen-com/hyperframes
 > **Reverse Engineering Guide:** https://rifaterdemsahin.github.io/hyperframes-pro/reverse-engineering.html ([`reverse-engineering.html`](reverse-engineering.html))
+> **Top 10 HyperFrames Repos (Short Reverse-Engineered):** https://rifaterdemsahin.github.io/hyperframes-pro/top-10-repos.html ([`top-10-repos.html`](top-10-repos.html))
 > **Hybrid Guide (£19 Pro + Local fal.ai):** https://rifaterdemsahin.github.io/hyperframes-pro/hybrid-fal-ai.html ([`hybrid-fal-ai.html`](hybrid-fal-ai.html))
 > **Quick Install Guide:** See [`INSTALL.md`](INSTALL.md) (`claude plugin marketplace add heygen-com/hyperframes`, `claude plugin install hyperframes@hyperframes`, & `npx skills add heygen-com/hyperframes`)
 

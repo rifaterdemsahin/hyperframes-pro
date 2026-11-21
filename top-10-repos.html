@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top 10 HyperFrames GitHub Repos — Reverse-Engineered YouTube Short (Dx6c5isxnN0)</title>
+  <meta name="description" content="Complete reverse-engineering breakdown of CookstarCode's YouTube Short '10 GitHub Repos That Level Up HyperFrames Videos' (Dx6c5isxnN0): all 10 clickable GitHub repos, 6x4 contact sheet, motion grammar, transcript, and copy-ready HyperFrames blueprint." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0c0d10;
+      --bg-elevated: #14161b;
+      --bg-card: #181b22;
+      --bg-card-hover: #1e222b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --emerald: #10b981;
+      --emerald-soft: rgba(16, 185, 129, 0.14);
+      --teal: #2dd4bf;
+      --coral: #f97316;
+      --coral-soft: rgba(249, 115, 22, 0.14);
+      --indigo: #818cf8;
+      --indigo-soft: rgba(129, 140, 248, 0.14);
+      --lime: #d9f99d;
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 15% 0%, rgba(249, 115, 22, 0.10), transparent 42%),
+        radial-gradient(circle at 85% 8%, rgba(16, 185, 129, 0.09), transparent 40%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    code, pre, .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12, 13, 16, 0.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    .brand:hover { text-decoration: none; }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, var(--coral), var(--emerald));
+      display: grid;
+      place-items: center;
+      color: #06131f;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--teal); text-decoration: none; }
+
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .hero {
+      padding: 4.25rem 0 3.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.36rem 0.85rem;
+      border-radius: 999px;
+      background: var(--coral-soft);
+      border: 1px solid rgba(249, 115, 22, 0.38);
+      color: #fb923c;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      max-width: 940px;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #fb923c, var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      font-size: 1.06rem;
+      color: var(--text-muted);
+      max-width: 820px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.25rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.72rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .btn-primary { background: var(--emerald); color: #052016; }
+    .btn-primary:hover { background: #14cf91; }
+    .btn-secondary { background: var(--bg-card); color: var(--text); border: 1px solid var(--border-strong); }
+    .btn-secondary:hover { background: var(--bg-card-hover); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem;
+    }
+    .stat-value { font-size: 1.45rem; font-weight: 800; color: var(--teal); }
+    .stat-label { font-size: 0.83rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+    section { padding: 3.75rem 0; border-bottom: 1px solid var(--border); }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--emerald);
+      margin-bottom: 0.45rem;
+    }
+
+    h2 {
+      font-size: clamp(1.55rem, 2.6vw, 2.15rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 800px;
+      margin-bottom: 2rem;
+      font-size: 0.96rem;
+    }
+
+    /* 10 Repos Grid */
+    .repos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .repo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.45rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+    .repo-card:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+
+    .repo-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .repo-idx {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.22rem 0.55rem;
+      border-radius: 6px;
+      background: var(--emerald-soft);
+      color: var(--teal);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .repo-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      color: var(--text-dim);
+    }
+
+    .repo-title {
+      font-size: 1.14rem;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+    }
+
+    .repo-title a { color: var(--text); }
+    .repo-title a:hover { color: var(--teal); }
+
+    .repo-owner {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .repo-desc {
+      font-size: 0.89rem;
+      color: var(--text-muted);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.71rem;
+      padding: 0.2rem 0.52rem;
+      border-radius: 999px;
+      background: rgba(129, 140, 248, 0.12);
+      border: 1px solid rgba(129, 140, 248, 0.28);
+      color: #c7d2fe;
+    }
+
+    .repo-foot {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--emerald-soft);
+      color: var(--teal);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 7px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: rgba(16, 185, 129, 0.25); }
+    .copy-btn.copied { background: var(--emerald); color: #052016; border-color: var(--emerald); }
+
+    /* Reverse Engineering Section */
+    .re-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    .sheet-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .sheet-card img { width: 100%; display: block; cursor: zoom-in; }
+    .sheet-caption { padding: 0.95rem 1.2rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border); }
+
+    .anatomy-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .anatomy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .anatomy-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+    .anatomy-card p { font-size: 0.87rem; color: var(--text-muted); }
+
+    .cmd-wrap { position: relative; }
+    pre.cmd-block {
+      background: #0a0b0e;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.95rem 1rem;
+      font-size: 0.78rem;
+      color: #e5e7eb;
+      overflow-x: auto;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+    .cmd-copy-btn {
+      position: absolute;
+      top: 0.45rem;
+      right: 0.45rem;
+      background: rgba(24, 27, 34, 0.92);
+      color: var(--teal);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 0.22rem 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .cmd-copy-btn.copied { background: var(--emerald); color: #052016; border-color: var(--emerald); }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.35rem;
+    }
+
+    footer { padding: 2.5rem 0 3.5rem; color: var(--text-dim); font-size: 0.86rem; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+
+    @media (max-width: 900px) {
+      .re-grid { grid-template-columns: 1fr; }
+      .repos-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">&lt;/&gt;</span>
+        <span>HyperFrames Pro</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">🏠 Showcase</a>
+        <a href="hybrid-fal-ai.html">💰 £19 + fal.ai</a>
+        <a href="reverse-engineering.html">🎬 Reverse Eng</a>
+        <a href="top-10-repos.html" class="active" style="font-weight:700;">🔥 Top 10 Repos</a>
+        <a href="#repos">📦 All 10 Links</a>
+        <a href="#video-anatomy">🔬 Video Breakdown</a>
+        <a href="#blueprint">📋 Prompt</a>
+        <a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener noreferrer">🚀 Repo ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="pill">🔥 Reverse-Engineered YouTube Short · CookstarCode (Dx6c5isxnN0)</div>
+        <h1>10 GitHub Repos That <span>Level Up HyperFrames Videos</span></h1>
+        <p class="lead">
+          Full frame-by-frame reverse engineering of <a href="https://youtube.com/shorts/Dx6c5isxnN0?si=-manOWY0yC4964v-" target="_blank" rel="noopener noreferrer"><strong>youtube.com/shorts/Dx6c5isxnN0 ↗</strong></a> (95s, 9:16 vertical, 30 fps) by <strong>CookstarCode</strong>—listing all <strong>10 open-source GitHub repositories</strong> mentioned in the video, their exact motion features, star counts, licenses, the extracted 6×4 contact sheet, full transcript, and a copy-ready HyperFrames template to recreate this exact Shorts format.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#repos" class="btn btn-primary">Explore All 10 GitHub Repos</a>
+          <a href="#video-anatomy" class="btn btn-secondary">View Contact Sheet &amp; Deconstruction</a>
+          <a href="https://youtube.com/shorts/Dx6c5isxnN0?si=-manOWY0yC4964v-" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Watch Original Short ↗</a>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">10 Repos</div>
+            <div class="stat-label">Code-audited open-source HyperFrames &amp; agent skills</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">95s · 9:16</div>
+            <div class="stat-label">30 fps H.264 vertical Short (~8.2 seconds per repo card)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">36.7k+ ★</div>
+            <div class="stat-label">Combined GitHub stars across all 10 featured repositories</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">HTML + GSAP</div>
+            <div class="stat-label">Video itself uses a repeating modular HyperFrames card rig</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- All 10 GitHub Repositories -->
+    <section id="repos">
+      <div class="container">
+        <div class="section-eyebrow">Complete Directory · 01 through 10</div>
+        <h2>All 10 GitHub Repositories Mentioned in the Video</h2>
+        <p class="section-desc">
+          Every repository from CookstarCode's breakdown with clickable GitHub links, timestamps, star counts (as of 28 Sep 2026), licenses, feature tags, and one-click copy buttons.
+        </p>
+
+        <div class="repos-grid">
+          <!-- 01 -->
+          <article class="repo-card">
+            <div class="repo-top">
+              <span class="repo-idx">01 / 10 · MOTION FRAGMENTS</span>
+              <span class="repo-time">00:07 – 00:16</span>
+            </div>
+            <div class="repo-owner">gongnyang /</div>
+            <h3 class="repo-title"><a href="https://github.com/gongnyang/reelforge" target="_blank" rel="noopener noreferrer">reelforge ↗</a></h3>
+            <p class="repo-desc">Library of render-tested motion fragments and matched transition pairs for HyperFrames—every fragment is render-tested before it's added.</p>
+            <div class="chips">
+              <span class="chip">type slams</span>
+              <span class="chip">count-ups</span>
+              <span class="chip">camera moves</span>
+              <span class="chip">matched transitions</span>
+            </div>
+            <div class="repo-foot">
+              <span>★ 84 · Apache-2.0</span>
+              <button class="copy-btn repo-copy" type="button" data-copy="https://github.com/gongnyang/reelforge">📋 Copy Link</button>
+            </div>
+          </article>
+
+          <!-- 02 -->
+          <article class="repo-card">
+            <div class="repo-top">
+              <span class="repo-idx">02 / 10 · HANDWRITING</span>
+              <span class="repo-time">00:17 – 00:24</span>
+            </div>
+            <div class="repo-owner">gkurt /</div>
+            <h3 class="repo-title"><a href="https://github.com/gkurt/tegaki" target="_blank" rel="noopener noreferrer">tegaki ↗</a></h3>
+            <p class="repo-desc">Animates real handwriting from any font, stroke by stroke, across multiple scripts—and scrubs cleanly on the HyperFrames timeline.</p>
+            <div class="chips">
+              <span class="chip">any font</span>
+              <span class="chip">stroke by stroke</span>
+              <span class="chip">timeline seek-safe</span>
+            </div>
+            <div class="repo-foot">
+              <span>★ 3.1k · MIT</span>
+              <button class="copy-btn repo-copy" type="button" data-copy="https://github.com/gkurt/tegaki">📋 Copy Link</button>
+            </div>
+          </article>
+
+          <!-- 03 -->
+          <article class="repo-card">
+            <div class="repo-top">
+              <span class="repo-idx">03 / 10 · DIAGRAMS</span>
+              <span class="repo-time">00:25 – 00:32</span>
+            </div>
+            <div class="repo-owner">omkamal /</div>
+            <h3 class="repo-title"><a href="https://github.com/omkamal/animated-diagrams-skill" target="_blank" rel="noopener noreferrer">animated-diagrams-skill ↗</a></h3>
+            <p class="repo-desc">Agent skill that turns a plain-text architecture description into a self-drawing diagram with a camera that tours it in 12 visual styles.</p>
+            <div class="chips">
+              <span class="chip">draws itself</span>
+              <span class="chip">touring camera</span>
+              <span class="chip">12 styles</span>
+            </div>
+            <div class="repo-foot">
+              <span>★ 11 · Apache-2.0</span>
+              <button class="copy-btn repo-copy" type="button" data-copy="https://github.com/omkamal/animated-diagrams-skill">📋 Copy Link</button>
+            </div>
+          </article>
+
+          <!-- 04 -->
+          <article class="repo-card">
+            <div class="repo-top">
+              <span class="repo-idx">04 / 10 · SOUND FROM MOTION</span>
+              <span class="repo-time">00:33 – 00:41</span>
+            </div>
+            <div class="repo-owner">AgentsORG /</div>
+            <h3 class="repo-title"><a href="https://github.com/AgentsORG/design-engineering" target="_blank" rel="noopener noreferrer">design-engineering ↗</a></h3>
+            <p class="repo-desc">Design skill whose tools derive sound effects directly from on-screen motion—element size sets pitch, horizontal position sets stereo pan.</p>
+            <div class="chips">
+              <span class="chip">size → pitch</span>
+              <span class="chip">position → pan</span>
+              <span class="chip">sound-sheet.mjs</span>
+            </div>
+            <div class="repo-foot">
+              <span>★ 25 · MIT</span>
+              <button class="copy-btn repo-copy" type="button" data-copy="https://github.com/AgentsORG/design-engineering">📋 Copy Link</button>
+            </div>
+          </article>
+
+          <!-- 05 -->
+          <article class="repo-card">
+            <div class="repo-top">
+              <span class="repo-idx">05 / 10 · CAMERA RIG</span>
+              <span class="repo-time">00:42 – 00:50</span>
+            </div>
+            <div class="repo-owner">alchaincyf /</div>
+            <h3 class="repo-title"><a href="https://github.com/alchaincyf/huashu-design" target="_blank" rel="noopener noreferrer">huashu-design ↗</a></h3>
+            <p class="repo-desc">Seek-safe GSAP camera rig: zoom timing scales automatically with zoom depth, and callout labels maintain constant readable size as the camera pushes in.</p>
+            <div class="chips">
+              <span class="chip">seek-safe</span>
+              <span class="chip">zoom time = zoom depth</span>
+              <span class="chip">labels keep their size</span>
+            </div>
+            <div class="repo-foot">
+              <span>★ 24.5k · MIT</span>
+              <button class="copy-btn repo-copy" type="button" data-copy="https://github.com/alchaincyf/huashu-design">📋 Copy Link</button>
+            </div>
+          </article>
+
+          <!-- 06 -->
+          <article class="repo-card">
+            <div class="repo-top">
+              <span class="repo-idx">06 / 10 · CARD TEMPLATES</span>
+              <span class="repo-time">00:51 – 00:58</span>
+            </div>
+            <div class="repo-owner">nateherkai /</div>
+            <h3 class="repo-title"><a href="https://github.com/nateherkai/hyperframes-student-kit" target="_blank" rel="noopener noreferrer">hyperframes-student-kit ↗</a></h3>
+            <p class="repo-desc">Packs 406 card templates plus automated talking-head editing utilities that cut dead silences and detect retakes automatically.</p>
+            <div class="chips">
+              <span class="chip">406 card templates</span>
+              <span class="chip">silence cutting</span>
+              <span class="chip">retake finder</span>
+            </div>
+            <div class="repo-foot">
+              <span>★ 1.1k · MIT</span>
+              <button class="copy-btn repo-copy" type="button" data-copy="https://github.com/nateherkai/hyperframes-student-kit">📋 Copy Link</button>
+            </div>
+          </article>
+
+          <!-- 07 -->
+          <article class="repo-card">
+            <div class="repo-top">
+              <span class="repo-idx">07 / 10 · MOTION TEMPLATES</span>
+              <span class="repo-time">00:59 – 01:04</span>
+            </div>
+            <div class="repo-owner">nutllwhy /</div>
+            <h3 class="repo-title"><a href="https://github.com/nutllwhy/hyperframes-motion-library" target="_blank" rel="noopener noreferrer">hyperframes-motion-library ↗</a></h3>
+            <p class="repo-desc">23 drop-in HyperFrames motion templates ranging from animated charts and KPI counters to full explainer cards you populate with your own numbers.</p>
+            <div class="chips">
+              <span class="chip">23 templates</span>
+              <span class="chip">charts &amp; counters</span>
+              <span class="chip">explainers</span>
+            </div>
+            <div class="repo-foot">
+              <span>★ 281 · MIT</span>
+              <button class="copy-btn repo-copy" type="button" data-copy="https://github.com/nutllwhy/hyperframes-motion-library">📋 Copy Link</button>
+            </div>
+          </article>
+
+          <!-- 08 -->
+          <article class="repo-card">
+            <div class="repo-top">
+              <span class="repo-idx">08 / 10 · STYLES + VARIETY AUDIT</span>
+              <span class="repo-time">01:05 – 01:11</span>
+            </div>
+            <div class="repo-owner">tugrawork-creator /</div>
+            <h3 class="repo-title"><a href="https://github.com/tugrawork-creator/saas-motion-kit" target="_blank" rel="noopener noreferrer">saas-motion-kit ↗</a></h3>
+            <p class="repo-desc">Renders a single script across six distinct SaaS visual styles and runs an automated storyboard variety audit to flag repeated transitions.</p>
+            <div class="chips">
+              <span class="chip">one script, six styles</span>
+              <span class="chip">variety audit</span>
+            </div>
+            <div class="repo-foot">
+              <span>★ 135 · MIT</span>
+              <button class="copy-btn repo-copy" type="button" data-copy="https://github.com/tugrawork-creator/saas-motion-kit">📋 Copy Link</button>
+            </div>
+          </article>
+
+          <!-- 09 -->
+          <article class="repo-card">
+            <div class="repo-top">
+              <span class="repo-idx">09 / 10 · PRODUCT LAUNCHES</span>
+              <span class="repo-time">01:12 – 01:18</span>
+            </div>
+            <div class="repo-owner">AbubakrChan /</div>
+            <h3 class="repo-title"><a href="https://github.com/AbubakrChan/product-launch-motion" target="_blank" rel="noopener noreferrer">product-launch-motion ↗</a></h3>
+            <p class="repo-desc">Launch-video toolkit adding smooth cursor moves &amp; clicks, subtle film grain overlays, and an automated loudness check for sound cues.</p>
+            <div class="chips">
+              <span class="chip">cursor moves + clicks</span>
+              <span class="chip">film grain</span>
+              <span class="chip">cue loudness check</span>
+            </div>
+            <div class="repo-foot">
+              <span>★ 67 · MIT</span>
+              <button class="copy-btn repo-copy" type="button" data-copy="https://github.com/AbubakrChan/product-launch-motion">📋 Copy Link</button>
+            </div>
+          </article>
+
+          <!-- 10 -->
+          <article class="repo-card">
+            <div class="repo-top">
+              <span class="repo-idx">10 / 10 · OFFICIAL SKILLS</span>
+              <span class="repo-time">01:19 – 01:28</span>
+            </div>
+            <div class="repo-owner">openai /</div>
+            <h3 class="repo-title"><a href="https://github.com/openai/plugins" target="_blank" rel="noopener noreferrer">plugins ↗</a></h3>
+            <p class="repo-desc">HeyGen's official HyperFrames skills packaged as an OpenAI Codex plugin—shipping transitions, highlight effects, and a script that detects animation dead zones.</p>
+            <div class="chips">
+              <span class="chip">transitions</span>
+              <span class="chip">highlight effects</span>
+              <span class="chip">dead-zone detector</span>
+            </div>
+            <div class="repo-foot">
+              <span>★ 7.2k · Apache-2.0</span>
+              <button class="copy-btn repo-copy" type="button" data-copy="https://github.com/openai/plugins">📋 Copy Link</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reverse Engineering Anatomy -->
+    <section id="video-anatomy">
+      <div class="container">
+        <div class="section-eyebrow">Reverse-Engineered Video Architecture</div>
+        <h2>Frame-by-Frame Deconstruction of <code>Dx6c5isxnN0</code></h2>
+        <p class="section-desc">
+          We extracted a 24-frame (6×4) contact sheet at 4-second intervals across all 95 seconds to reverse-engineer the exact HyperFrames template, pacing, and motion system that makes this Short so watchable.
+        </p>
+
+        <div class="re-grid">
+          <div class="sheet-card">
+            <img src="assets/short-Dx6c5isxnN0-contact-sheet.jpg" alt="6x4 contact sheet extracted from YouTube Short Dx6c5isxnN0" />
+            <div class="sheet-caption">
+              <strong>6×4 Contact Sheet (0.25 fps = 1 frame every 4s):</strong> Notice how every single repo reuses one disciplined vertical card shell while shifting only the ambient radial glow color, live demo stage, feature chips, and star counter.
+            </div>
+          </div>
+
+          <div class="anatomy-stack">
+            <div class="anatomy-card">
+              <h3>1. Hook Pattern (00:00 – 00:07 · 7s)</h3>
+              <p>High-contrast white uppercase headline (<code>10 GITHUB REPOS FOR BETTER HYPERFRAMES MOTION VIDEOS</code>) with <code>HYPERFRAMES</code> in electric yellow-lime, layered over a fast horizontal mosaic of preview thumbnails + credibility line: <em>"We read the code of every one."</em></p>
+            </div>
+            <div class="anatomy-card">
+              <h3>2. Repeating 10-Card System (00:07 – 01:28 · ~8.2s each)</h3>
+              <p>Each card follows a strict 5-zone vertical grid: (1) Monospace index <code>01 / 10 · CATEGORY</code>, (2) <code>owner/</code> + bold repo name + 1-line summary, (3) 16:9 live preview stage with color-keyed radial backdrop glow, (4) staggered feature chips popping in as the narrator names them, (5) live animated star count + license + <code>github.com/...</code> URL.</p>
+            </div>
+            <div class="anatomy-card">
+              <h3>3. Audio-Visual Sync &amp; Procedural SFX</h3>
+              <p>Voiceover pacing is ~155 WPM with crisp pauses at each card cut. Card #4 (<code>AgentsORG/design-engineering</code>) literally demonstrates procedural motion-to-sound synthesis (<code>size → pitch</code>, <code>position → pan</code>) inside its own preview clip.</p>
+            </div>
+            <div class="anatomy-card">
+              <h3>4. Outro CTA Loop (01:28 – 01:35 · 7s)</h3>
+              <p>Clean dark screen with bold <code>ALL 10 LINKS ARE IN THE DESCRIPTION ↓</code> and a rapid staggered reveal of all 10 <code>owner/repo</code> lines—driving saves and description opens.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transcript & Copy-Ready Blueprint -->
+    <section id="blueprint">
+      <div class="container">
+        <div class="section-eyebrow">Reusable Assets</div>
+        <h2>Full Transcript &amp; Copy-Ready HyperFrames Clone Prompt</h2>
+        <p class="section-desc">
+          Copy the exact timestamped transcript or paste the HyperFrames prompt directly into Claude Code (with <code>heygen-com/hyperframes</code>) to generate your own 9:16 "Top 10" Short in this exact style.
+        </p>
+
+        <div class="two-col">
+          <div class="cmd-wrap">
+            <pre class="cmd-block"># Timestamped Transcript (Dx6c5isxnN0 · 95s)
+[00:00:01] 10 GitHub repos that make HyperFrames motion videos better. We read the code of every one.
+[00:00:07] 01 ReelForge: library of motion fragments — type slams, count-ups, camera moves, match transitions, render-tested.
+[00:00:17] 02 Tegaki: animates real handwriting from any font stroke by stroke in many scripts, scrubs cleanly.
+[00:00:25] 03 Animated Diagrams Skill: turns a description into a self-drawing diagram with touring camera in 12 styles.
+[00:00:33] 04 Design Engineering: turns motion into sound — size sets pitch, position sets pan.
+[00:00:42] 05 Huashu Design: seek-safe camera rig — zoom timing scales with depth, labels keep constant size.
+[00:00:51] 06 HyperFrames Student Kit: 406 card templates + silence cutting and retake finder.
+[00:00:59] 07 HyperFrames Motion Library: 23 templates including charts and counters.
+[00:01:05] 08 SaaS Motion Kit: plays one script in 6 styles + audits storyboard for repeated transitions.
+[00:01:12] 09 Product Launch Motion: cursor moves &amp; clicks, film grain, and cue loudness check.
+[00:01:19] 10 OpenAI Plugins: HeyGen's official HyperFrames skills as a Codex plugin + dead-zone finder.
+[00:01:28] All 10 repository links are in the description.</pre>
+          </div>
+
+          <div class="cmd-wrap">
+            <pre class="cmd-block"># Paste into Claude Code (/hyperframes:hyperframes) to clone this Short format:
+Build a 95-second 9:16 vertical (1080x1920, 30fps) HyperFrames Short
+modeled on CookstarCode's "Top 10 Repos" card system:
+1. Hook (0-7s): Dark #0a0b0e canvas, stacked uppercase headline with
+   one keyword highlighted in electric lime, horizontal scrolling preview mosaic,
+   and subtitle "We tested every single one."
+2. 10 Repeating Cards (~8s each):
+   - Top monospace eyebrow: "01 / 10 · CATEGORY"
+   - Owner + bold title + 1-line summary
+   - 16:9 rounded preview box with unique radial glow color per card
+   - 2-4 staggered pill chips popping in on voiceover beats (2 frames apart)
+   - Bottom row: animated star count + license + github.com/owner/repo
+3. Outro (88-95s): "ALL 10 LINKS ARE IN THE DESCRIPTION ↓" + staggered 01-10 list.
+Generate STORYBOARD.md first, then compile index.html + boards/ and sheet.jpg.</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>Reverse-Engineered from <a href="https://youtube.com/shorts/Dx6c5isxnN0?si=-manOWY0yC4964v-" target="_blank" rel="noopener noreferrer">CookstarCode (Dx6c5isxnN0)</a> · Official HyperFrames: <a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener noreferrer">heygen-com/hyperframes</a></div>
+      <div>
+        <a href="index.html">🏠 Showcase</a> ·
+        <a href="hybrid-fal-ai.html">💰 £19 + fal.ai</a> ·
+        <a href="reverse-engineering.html">🎬 Reverse Eng</a> ·
+        <a href="INSTALL.md">INSTALL.md</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    async function copyToClipboard(text, btn, defaultLabel) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = defaultLabel;
+          btn.classList.remove('copied');
+        }, 1800);
+      } catch (e) {
+        btn.textContent = 'Copy failed';
+      }
+    }
+
+    document.querySelectorAll('.repo-copy').forEach((btn) => {
+      btn.addEventListener('click', () => copyToClipboard(btn.dataset.copy, btn, '📋 Copy Link'));
+    });
+
+    document.querySelectorAll('pre.cmd-block').forEach((pre) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cmd-copy-btn';
+      btn.textContent = '📋 Copy';
+      btn.addEventListener('click', () => copyToClipboard(pre.textContent.trim(), btn, '📋 Copy'));
+      pre.parentElement.appendChild(btn);
+    });
+  </script>
+  <script src="site-guide.js"></script>
+</body>
+</html>
