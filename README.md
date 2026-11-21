@@ -1,8 +1,10 @@
 # HyperFrames Pro — Complete Usage Guide, All Features & Remotion + fal.ai Comparison
 
 > **Live Interactive Showcase (GitHub Pages):** https://rifaterdemsahin.github.io/hyperframes-pro/
+> **Official HyperFrames Repo & Plugin:** https://github.com/heygen-com/hyperframes
+> **Reverse Engineering Guide:** https://rifaterdemsahin.github.io/hyperframes-pro/reverse-engineering.html ([`reverse-engineering.html`](reverse-engineering.html))
 > **Hybrid Guide (£19 Pro + Local fal.ai):** https://rifaterdemsahin.github.io/hyperframes-pro/hybrid-fal-ai.html ([`hybrid-fal-ai.html`](hybrid-fal-ai.html))
-> **Quick Install Guide:** See [`INSTALL.md`](INSTALL.md) (`claude plugin marketplace add heygen-com/hyperframes` & `npx skills add heygen-com/hyperframes`)
+> **Quick Install Guide:** See [`INSTALL.md`](INSTALL.md) (`claude plugin marketplace add heygen-com/hyperframes`, `claude plugin install hyperframes@hyperframes`, & `npx skills add heygen-com/hyperframes`)
 
 ## Overview
 HyperFrames is an advanced rendering and editing orchestration engine that treats **video as code**. Instead of manually dragging clips in a traditional timeline editor, HyperFrames allows you to use AI coding agents (like Framey and Claude Code) to programmatically generate, sequence, and render final MP4 videos using standard **HTML, CSS, JavaScript, and GSAP animations**.

@@ -1,6 +1,8 @@
 # HyperFrames Pro — Complete Install Guide
 
-This guide covers installing **HyperFrames** with **Claude Code**, other AI coding agents (**Cursor, VS Code, GitHub Copilot, Gemini CLI, OpenCode**), **HyperFrames Studio**, and the optional **Remotion + fal.ai** comparison stack.
+> **Official Open-Source Repository:** https://github.com/heygen-com/hyperframes
+
+This guide covers installing **HyperFrames** (`heygen-com/hyperframes`) with **Claude Code**, other AI coding agents (**Cursor, VS Code, GitHub Copilot, Gemini CLI, OpenCode**), **HyperFrames Studio**, and the optional **Remotion + fal.ai** comparison stack.
 
 ---
 

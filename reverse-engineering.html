@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reverse Engineering Any Video into Code — HyperFrames Pro &amp; Claude Code</title>
+  <meta name="description" content="Complete guide to reverse engineering any reference video into editable HTML/CSS/GSAP code using HyperFrames Pro (/reverse-any-video), heygen-com/hyperframes plugin, 120 BPM grids, and contact-sheet QA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0c0d10;
+      --bg-elevated: #14161b;
+      --bg-card: #181b22;
+      --bg-card-hover: #1e222b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --emerald: #10b981;
+      --emerald-soft: rgba(16, 185, 129, 0.14);
+      --teal: #2dd4bf;
+      --coral: #f97316;
+      --coral-soft: rgba(249, 115, 22, 0.14);
+      --indigo: #818cf8;
+      --indigo-soft: rgba(129, 140, 248, 0.14);
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 18% 0%, rgba(129, 140, 248, 0.11), transparent 42%),
+        radial-gradient(circle at 86% 10%, rgba(16, 185, 129, 0.09), transparent 40%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    code, pre, .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12, 13, 16, 0.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    .brand:hover { text-decoration: none; }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, var(--indigo), var(--teal));
+      display: grid;
+      place-items: center;
+      color: #06131f;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--teal); text-decoration: none; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .hero {
+      padding: 4.25rem 0 3.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.36rem 0.85rem;
+      border-radius: 999px;
+      background: var(--indigo-soft);
+      border: 1px solid rgba(129, 140, 248, 0.38);
+      color: #a5b4fc;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      max-width: 920px;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--indigo), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      font-size: 1.06rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.72rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .btn-primary { background: var(--emerald); color: #052016; }
+    .btn-primary:hover { background: #14cf91; }
+    .btn-secondary { background: var(--bg-card); color: var(--text); border: 1px solid var(--border-strong); }
+    .btn-secondary:hover { background: var(--bg-card-hover); }
+
+    section { padding: 3.75rem 0; border-bottom: 1px solid var(--border); }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--emerald);
+      margin-bottom: 0.45rem;
+    }
+
+    h2 {
+      font-size: clamp(1.55rem, 2.6vw, 2.15rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 780px;
+      margin-bottom: 2rem;
+      font-size: 0.96rem;
+    }
+
+    .badge {
+      display: inline-block;
+      width: fit-content;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.24rem 0.58rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.6rem;
+    }
+    .badge-emerald { background: var(--emerald-soft); color: var(--teal); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-indigo { background: var(--indigo-soft); color: #a5b4fc; border: 1px solid rgba(129, 140, 248, 0.3); }
+    .badge-coral { background: var(--coral-soft); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .card h3 { font-size: 1.12rem; }
+    .card p { font-size: 0.9rem; color: var(--text-muted); }
+
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .check-list li {
+      font-size: 0.87rem;
+      color: #d1d5db;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .check-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .steps-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+    }
+
+    .step-row {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .step-row h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+    .step-row p { font-size: 0.89rem; color: var(--text-muted); }
+
+    .cmd-wrap { position: relative; }
+
+    pre.cmd-block {
+      background: #0a0b0e;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.95rem 1rem;
+      font-size: 0.78rem;
+      color: #e5e7eb;
+      overflow-x: auto;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+
+    .cmd-copy-btn {
+      position: absolute;
+      top: 0.45rem;
+      right: 0.45rem;
+      background: rgba(24, 27, 34, 0.92);
+      color: var(--teal);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 0.22rem 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .cmd-copy-btn:hover { background: var(--bg-card-hover); }
+    .cmd-copy-btn.copied { background: var(--emerald); color: #052016; border-color: var(--emerald); }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .proof-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .proof-card img { width: 100%; display: block; border-bottom: 1px solid var(--border); }
+    .proof-body { padding: 1.15rem 1.25rem; display: flex; flex-direction: column; gap: 0.45rem; }
+    .proof-body h3 { font-size: 1rem; }
+    .proof-body p { font-size: 0.86rem; color: var(--text-muted); }
+
+    footer { padding: 2.5rem 0 3.5rem; color: var(--text-dim); font-size: 0.86rem; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+
+    @media (max-width: 860px) {
+      .step-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">&lt;/&gt;</span>
+        <span>HyperFrames Pro</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">← Main Showcase</a>
+        <a href="hybrid-fal-ai.html">£19 Pro + Local fal.ai</a>
+        <a href="#methods" class="active">2 Methods</a>
+        <a href="#pipeline">5-Step Pipeline</a>
+        <a href="#prompts">Copy Prompts</a>
+        <a href="#proof">Real Captures</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="pill">🎬 Video Decompilation · /reverse-any-video + heygen-com/hyperframes</div>
+        <h1>Reverse Engineering Any Video into <span>Editable HTML &amp; GSAP Code</span></h1>
+        <p class="lead">
+          Turn any high-performing X/Threads reel, SaaS promo, or explainer video into a modular, customizable HyperFrames project—complete with beat-synced cuts (120 BPM), contrast-checked brand palettes, contact-sheet visual QA (<code>sheet.jpg</code>), and reusable scenes. Powered by <a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener noreferrer">github.com/heygen-com/hyperframes ↗</a>.
+        </p>
+        <div class="hero-actions">
+          <a href="#pipeline" class="btn btn-primary">5-Step Reverse-Engineering Pipeline</a>
+          <a href="#prompts" class="btn btn-secondary">Copy Battle-Tested Prompts</a>
+          <a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Official HyperFrames Repo ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Two Methods -->
+    <section id="methods">
+      <div class="container">
+        <div class="section-eyebrow">Two Workflows</div>
+        <h2>Pro One-Click <code>/reverse-any-video</code> vs. Local Claude Code Decompilation</h2>
+        <p class="section-desc">
+          Depending on whether you want turnkey speed inside HyperFrames Pro Studio or full custom control with Claude Code + local scripts, choose either method—or combine them on the same <code>~/.hyperframes-studio/</code> directory.
+        </p>
+
+        <div class="two-col">
+          <article class="card">
+            <span class="badge badge-emerald">Method 01 · HyperFrames Pro Studio (£19/$25)</span>
+            <h3>Built-in <code>/reverse-any-video</code> &amp; Video Match</h3>
+            <p>
+              Drop any reference video directly into HyperFrames Pro Studio. Framey automatically extracts scene structure, typography rhythm, and animation timings into an editable project.
+            </p>
+            <ul class="check-list">
+              <li><strong><code>/reverse-any-video</code>:</strong> Rebuilds an existing video into editable HTML/CSS/GSAP layers.</li>
+              <li><strong>Video Match:</strong> Generates a brand-new video matching the pacing and visual feel of a reference clip.</li>
+              <li><strong>Click-and-Change + Pin Comments:</strong> Click any reversed element to swap your own product copy, screenshots, and brand colors.</li>
+              <li><strong>Cloud Export:</strong> Render the final remixed 1080p/4K MP4 with zero local CPU load.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <span class="badge badge-indigo">Method 02 · Open-Source + Claude Code Plugin</span>
+            <h3>Local Decompilation with <code>heygen-com/hyperframes</code></h3>
+            <p>
+              Install the official open-source plugin from <a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener noreferrer">heygen-com/hyperframes</a> and let Claude Code analyze reference URLs, extract frame sheets, and rebuild scenes using your real product screenshots.
+            </p>
+            <ul class="check-list">
+              <li><strong>Zero Extra Video Credits:</strong> Runs on your existing Claude Pro/Max subscription (proven at ~39% session usage).</li>
+              <li><strong>120 BPM Beat Grid:</strong> Cuts chapters strictly to musical beats (120–128 BPM) for punchy social reels.</li>
+              <li><strong>Contact-Sheet Visual QA:</strong> Auto-renders <code>sheet.jpg</code> (1 frame every 0.5s) so Claude inspects every transition.</li>
+              <li><strong>Custom 2D Rigging:</strong> Separates static mascot limbs (e.g., waving hand + blinking eyelids) and runs custom background removal.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-Step Pipeline -->
+    <section id="pipeline">
+      <div class="container">
+        <div class="section-eyebrow">End-to-End Execution</div>
+        <h2>5-Step Video Reverse-Engineering Pipeline</h2>
+        <p class="section-desc">
+          Reproduce the exact workflow captured in our field study—from installing the official plugin to rendering a 120 BPM reel with contact-sheet verification.
+        </p>
+
+        <div class="steps-stack">
+          <div class="step-row">
+            <div>
+              <span class="badge badge-emerald">Step 01 · Plugin Install</span>
+              <h3>Install <code>heygen-com/hyperframes</code></h3>
+              <p>Install the official versioned plugin from <a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener noreferrer">github.com/heygen-com/hyperframes</a> in Claude Code (or via <code>npx skills</code> for Cursor, VS Code, Copilot, Gemini CLI, and OpenCode).</p>
+            </div>
+            <div class="cmd-wrap">
+              <pre class="cmd-block"># Claude Code (recommended):
+claude plugin marketplace add heygen-com/hyperframes
+claude plugin install hyperframes@hyperframes
+# Enable auto-update in: /plugin -> Marketplaces -> hyperframes
+
+# Other AI coding agents (Cursor, VS Code, Copilot, Gemini CLI, OpenCode):
+npx skills add heygen-com/hyperframes</pre>
+            </div>
+          </div>
+
+          <div class="step-row">
+            <div>
+              <span class="badge badge-indigo">Step 02 · Frame Extraction</span>
+              <h3>Extract Reference Contact Sheet (Optional Local MP4)</h3>
+              <p>If reverse-engineering a downloaded <code>reference.mp4</code>, sample 2 frames per second into a tiled contact sheet with <code>ffmpeg</code> so Claude can inspect every cut, font weight, and transition directly.</p>
+            </div>
+            <div class="cmd-wrap">
+              <pre class="cmd-block"># Generate a 0.5s-interval contact sheet from any reference MP4:
+ffmpeg -i reference.mp4 -vf "fps=2,scale=320:-1,tile=6x6" ref-sheet.jpg</pre>
+            </div>
+          </div>
+
+          <div class="step-row">
+            <div>
+              <span class="badge badge-coral">Step 03 · Decompile to STORYBOARD.md</span>
+              <h3>Analyze Pacing, Palette &amp; Hooks</h3>
+              <p>Feed the reference URL or <code>ref-sheet.jpg</code> plus your own product screenshots into Claude Code with <code>/hyperframes:hyperframes</code>. Ask Claude to document exact chapter timings in <code>STORYBOARD.md</code> and audit color contrast.</p>
+            </div>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">/hyperframes:hyperframes
+Analyze ref-sheet.jpg (or the reference URL).
+1. Break down every chapter cut in STORYBOARD.md on a 120 BPM grid.
+2. Identify the hook, proof, turn, and CTA structure.
+3. Audit brand contrast (override unreadable light yellow on white).
+4. Use ONLY my real product screenshots in ./assets/ — invent zero fake stats.</pre>
+            </div>
+          </div>
+
+          <div class="step-row">
+            <div>
+              <span class="badge badge-indigo">Step 04 · Modular HTML/GSAP Build</span>
+              <h3>Compile Scenes &amp; Inspect on <code>localhost:3002</code></h3>
+              <p>Claude builds modular HTML scenes (<code>frames/01-hook.html</code> through <code>05-cta.html</code>) plus root <code>index.html</code>. Launch local preview to verify Lint checks and motion choreography.</p>
+            </div>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">npx hyperframes preview
+# Opens local HyperFrames Studio on http://localhost:3002
+# Check: Compositions, Lint count, Record a gesture (R), and ⌘K edits</pre>
+            </div>
+          </div>
+
+          <div class="step-row">
+            <div>
+              <span class="badge badge-emerald">Step 05 · Contact Sheet QA &amp; Render</span>
+              <h3>Verify <code>sheet.jpg</code> &amp; Export MP4</h3>
+              <p>Render a silent 15s <code>1920×1080</code> reel plus a <code>sheet.jpg</code> contact sheet (1 frame every 0.5s) to catch any layout glitches before adding a 120–128 BPM music track and exporting via local CLI or Pro Cloud.</p>
+            </div>
+            <div class="cmd-wrap">
+              <pre class="cmd-block"># Ask Claude to render + verify via contact sheet:
+"Render the 15s 1920x1080 MP4 and generate sheet.jpg (1 frame every 0.5s).
+ Read sheet.jpg to verify zero text clipping, contrast issues, or broken frames.
+ Then lay in ./assets/track-120bpm.mp3 with fade-in/out."</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Copy-Ready Reverse Engineering Prompts -->
+    <section id="prompts">
+      <div class="container">
+        <div class="section-eyebrow">Battle-Tested Templates</div>
+        <h2>Copy-Ready Reverse-Engineering Prompts</h2>
+        <p class="section-desc">
+          Real prompts distilled directly from our OCR'd field captures—ready to paste into Claude Code or Framey.
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <span class="badge badge-emerald">Prompt 01 · Reference URL + Mascot Rigging</span>
+            <h3>Reverse-Engineer a Social Video with Your Own Mascot</h3>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">Figure out what makes the video in this link so good:
+[PASTE REFERENCE VIDEO URL]
+
+Create a promotional video for [YOUR PRODUCT] along the lines of that video,
+introducing how our product solves [CORE PAIN POINT].
+- Use ONLY the real product screenshots in ./assets/
+- Use our mascot image (./assets/mascot.png), remove the white background,
+  and animate it as a 2D cut-out (separate waving hand + blinking eyelids).
+- Build STORYBOARD.md first with exact second-by-second timings.</pre>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="badge badge-indigo">Prompt 02 · Short 15–20s Punchy 120 BPM Remix</span>
+            <h3>Compress &amp; Remix to a 120 BPM Grid</h3>
+            <div class="cmd-wrap">
+              <pre class="cmd-block">Draw inspiration from this video:
+[PASTE X / THREADS / YOUTUBE URL]
+
+Make the video shorter — 15 to 20 seconds, cut tightly to a 120 BPM grid.
+Highlight how [YOUR PRODUCT] performs key tasks using real screenshots from
+[YOUR WEBSITE URL].
+- Keep a continuous top/bottom HUD overlay across all chapters.
+- End with CTA: "Sign up for Free at [YOUR PRODUCT]"
+- Render a 1920x1080 MP4 + sheet.jpg (1 frame every 0.5s) for QA.</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Proof from Real Captures -->
+    <section id="proof">
+      <div class="container">
+        <div class="section-eyebrow">Real-World Proof</div>
+        <h2>Reverse Engineering in Action (From Today's Captures)</h2>
+        <p class="section-desc">
+          Actual screenshots showing the plugin install, Claude's storyboard contrast audit, the 120 BPM contact-sheet QA, and 2D mascot animation.
+        </p>
+
+        <div class="proof-grid">
+          <article class="proof-card">
+            <img src="downloads/05-claude-storyboard-decisions-prompt.jpeg" alt="Claude storyboard decision log and reference link prompt" loading="lazy" />
+            <div class="proof-body">
+              <span class="badge badge-indigo">01 · Decompile &amp; Contrast Fix</span>
+              <h3>Reference Link → <code>STORYBOARD.md</code> (+147 -0)</h3>
+              <p>Claude analyzes the Threads reference URL, overrides unreadable yellow (<code>#E2E200</code> → <code>#CB3D7A</code>), and uses authentic dashboard screenshots only.</p>
+            </div>
+          </article>
+
+          <article class="proof-card">
+            <img src="downloads/06-120bpm-reel-contact-sheet-qa.jpeg" alt="15s 120 BPM reel and 0.5s contact sheet grid" loading="lazy" />
+            <div class="proof-body">
+              <span class="badge badge-emerald">02 · Contact Sheet QA</span>
+              <h3>120 BPM Reel + <code>sheet.jpg</code> Verification</h3>
+              <p>Auto-generated 0.5-second contact sheet lets Claude visually audit every chapter cut (<code>HELLO</code> → <code>POST</code> → <code>263K/469K/474K</code> → <code>CTA</code>).</p>
+            </div>
+          </article>
+
+          <article class="proof-card">
+            <img src="downloads/07-2d-mascot-animation-and-inspiration-prompt.jpeg" alt="2D mascot cut-out animation explanation and X inspiration prompt" loading="lazy" />
+            <div class="proof-body">
+              <span class="badge badge-coral">03 · 2D Cut-Out Rigging</span>
+              <h3>Waving Hand, Blinking Eyelids &amp; Single-File Overlay</h3>
+              <p>Animates a single static mascot PNG via DOM piece separation, custom background removal, and continuous overlay continuity across chapters.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>HyperFrames Video Reverse-Engineering Guide · Official Framework: <a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener noreferrer">heygen-com/hyperframes</a></div>
+      <div>
+        <a href="index.html">Main Showcase</a> ·
+        <a href="hybrid-fal-ai.html">£19 Pro + Local fal.ai</a> ·
+        <a href="INSTALL.md">INSTALL.md</a> ·
+        <a href="README.md">README.md</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    async function copyToClipboard(text, btn) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋 Copy';
+          btn.classList.remove('copied');
+        }, 1800);
+      } catch (e) {
+        btn.textContent = 'Copy failed';
+      }
+    }
+
+    document.querySelectorAll('pre.cmd-block').forEach((pre) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cmd-copy-btn';
+      btn.textContent = '📋 Copy';
+      btn.addEventListener('click', () => copyToClipboard(pre.textContent.trim(), btn));
+      pre.parentElement.appendChild(btn);
+    });
+  </script>
+</body>
+</html>
