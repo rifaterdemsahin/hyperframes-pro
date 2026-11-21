@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HyperFrames Pro — Video-as-Code Architecture &amp; Studio Walkthrough</title>
+  <meta name="description" content="Complete visual walkthrough, architectural diagrams, Claude Code handoff guide, and cloud rendering ROI analysis for HyperFrames Pro." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0c0d10;
+      --bg-elevated: #14161b;
+      --bg-card: #181b22;
+      --bg-card-hover: #1e222b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --emerald: #10b981;
+      --emerald-soft: rgba(16, 185, 129, 0.14);
+      --teal: #2dd4bf;
+      --coral: #f97316;
+      --coral-soft: rgba(249, 115, 22, 0.14);
+      --indigo: #818cf8;
+      --indigo-soft: rgba(129, 140, 248, 0.14);
+      --radius: 14px;
+      --radius-sm: 8px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 15% 0%, rgba(16, 185, 129, 0.09), transparent 40%),
+        radial-gradient(circle at 85% 10%, rgba(249, 115, 22, 0.07), transparent 38%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12, 13, 16, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .brand:hover {
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, var(--emerald), var(--teal));
+      display: grid;
+      place-items: center;
+      color: #062118;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 4.5rem 0 3.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      background: var(--emerald-soft);
+      border: 1px solid rgba(16, 185, 129, 0.32);
+      color: var(--teal);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 4.2vw, 3.45rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      max-width: 900px;
+      margin-bottom: 1.15rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--teal), var(--emerald));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p.lead {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.72rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--emerald);
+      color: #052016;
+    }
+
+    .btn-primary:hover {
+      background: #14cf91;
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.15rem 1.25rem;
+    }
+
+    .stat-value {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .stat-value.accent-emerald { color: var(--teal); }
+    .stat-value.accent-coral { color: var(--coral); }
+
+    .stat-label {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Sections */
+    section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      margin-bottom: 2.25rem;
+    }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--emerald);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.65rem, 2.8vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      max-width: 740px;
+      font-size: 0.98rem;
+    }
+
+    /* Architecture Support Cards */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .arch-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      box-shadow: var(--shadow);
+    }
+
+    .arch-media {
+      background: #0b0c0f;
+      border-right: 1px solid var(--border);
+      position: relative;
+      cursor: zoom-in;
+      overflow: hidden;
+    }
+
+    .arch-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .arch-media:hover img {
+      transform: scale(1.015);
+    }
+
+    .zoom-hint {
+      position: absolute;
+      bottom: 0.75rem;
+      right: 0.75rem;
+      background: rgba(12, 13, 16, 0.85);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    .arch-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.9rem;
+    }
+
+    .badge {
+      display: inline-block;
+      width: fit-content;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-emerald { background: var(--emerald-soft); color: var(--teal); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-coral { background: var(--coral-soft); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+    .badge-indigo { background: var(--indigo-soft); color: #a5b4fc; border: 1px solid rgba(129, 140, 248, 0.3); }
+
+    .arch-body h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .arch-body p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    .arch-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .arch-points li {
+      font-size: 0.88rem;
+      color: #d1d5db;
+      padding-left: 1.15rem;
+      position: relative;
+    }
+
+    .arch-points li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--emerald);
+      font-weight: 700;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.45rem 0.95rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+
+    .filter-btn.active {
+      background: var(--emerald-soft);
+      color: var(--teal);
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+
+    /* Screenshot Walkthrough Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .shot-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .shot-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-strong);
+    }
+
+    .shot-card.hidden {
+      display: none;
+    }
+
+    .shot-thumb {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: #0a0b0e;
+      overflow: hidden;
+      cursor: zoom-in;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .shot-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .shot-thumb:hover img {
+      transform: scale(1.03);
+    }
+
+    .step-pill {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      background: rgba(12, 13, 16, 0.88);
+      border: 1px solid var(--border-strong);
+      color: var(--teal);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+    }
+
+    .shot-content {
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      flex: 1;
+    }
+
+    .shot-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .shot-filename {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      word-break: break-all;
+    }
+
+    .shot-content h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.3;
+    }
+
+    .shot-content p {
+      font-size: 0.89rem;
+      color: var(--text-muted);
+    }
+
+    .shot-takeaway {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: #d1d5db;
+    }
+
+    .shot-takeaway strong {
+      color: var(--teal);
+    }
+
+    /* Claude Handoff Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.15rem;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .step-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--indigo-soft);
+      border: 1px solid rgba(129, 140, 248, 0.35);
+      color: #a5b4fc;
+      display: grid;
+      place-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .step-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .step-card p {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+    }
+
+    .code-inline {
+      display: inline-block;
+      background: #0b0c10;
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.45rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      color: var(--teal);
+    }
+
+    /* Comparison Tables */
+    .tables-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .table-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .table-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.72rem 0.65rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    td strong {
+      color: var(--text);
+    }
+
+    .highlight-cell {
+      color: var(--teal);
+      font-weight: 600;
+    }
+
+    /* Deployment block */
+    .deploy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .deploy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+    }
+
+    .deploy-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.55rem;
+    }
+
+    .deploy-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    pre.cmd-block {
+      background: #0a0b0e;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+      overflow-x: auto;
+      line-height: 1.55;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2.5rem 0 3.5rem;
+      color: var(--text-dim);
+      font-size: 0.86rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(6, 7, 10, 0.92);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-panel {
+      max-width: 1180px;
+      width: 100%;
+      max-height: 92vh;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+    }
+
+    .lightbox-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lightbox-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .lightbox-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .lb-btn {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      border-radius: 7px;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .lb-btn:hover {
+      background: var(--bg-card-hover);
+    }
+
+    .lightbox-img-wrap {
+      flex: 1;
+      overflow: auto;
+      background: #08090c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .lightbox-img-wrap img {
+      max-width: 100%;
+      max-height: 68vh;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .lightbox-caption {
+      padding: 0.95rem 1.25rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 900px) {
+      .arch-card {
+        grid-template-columns: 1fr;
+      }
+      .arch-media {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="#top" class="brand">
+        <span class="brand-icon">&lt;/&gt;</span>
+        <span>HyperFrames Pro</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#architecture">Architecture</a>
+        <a href="#walkthrough">Studio Walkthrough (12)</a>
+        <a href="#claude-handoff">Claude Handoff</a>
+        <a href="#economics">Economics &amp; ROI</a>
+        <a href="#deployment">Deployment</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          Video-as-Code Field Study &amp; Architecture Reference
+        </div>
+        <h1>HyperFrames Pro: <span>Programmatic Video Production</span> with AI Agents</h1>
+        <p class="lead">
+          HyperFrames treats video as a standard web project—HTML, CSS, JavaScript, and GSAP animations—orchestrated by AI coding agents like Framey and Claude Code. Explore the 3 architectural blueprints and all 12 real-world production captures from building a 17.5-minute presentation end-to-end.
+        </p>
+        <div class="hero-actions">
+          <a href="#walkthrough" class="btn btn-primary">Explore All 12 Captures</a>
+          <a href="#architecture" class="btn btn-secondary">View Architecture Diagrams</a>
+          <a href="https://github.com/rifaterdemsahin/hyperframes-pro" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub Repository ↗</a>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value accent-emerald">25,000</div>
+            <div class="stat-label">Monthly media generation credits (£19 / $25 Pro Plan)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value accent-emerald">Unlimited</div>
+            <div class="stat-label">Cloud MP4 / WebM / MOV renders with zero local lockup</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value accent-coral">~468 / 90s</div>
+            <div class="stat-label">Benchmark credit burn (~3,120 credits per 10-min video)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">12 + 3</div>
+            <div class="stat-label">12 annotated Studio captures &amp; 3 architectural diagrams</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Support Images -->
+    <section id="architecture">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Architectural Support Diagrams</div>
+          <h2>How HyperFrames Pro Works Under the Hood</h2>
+          <p>
+            Three technical architecture diagrams illustrating the Video-as-Code compilation pipeline, bidirectional HyperFrames Studio ↔ Claude Code handoff, and Cloud vs. Local rendering economics. Click any diagram to inspect full-screen.
+          </p>
+        </div>
+
+        <div class="arch-grid">
+          <!-- Arch 1 -->
+          <article class="arch-card">
+            <div class="arch-media lightbox-trigger" data-title="Architecture 01 — Video-as-Code Pipeline" data-caption="End-to-end flow from prompt & storyboard through Framey AI orchestration (Claude Sonnet 5.5, HeyGen/ElevenLabs voiceovers, audio beds) into HTML/CSS/JS + GSAP web composition and offloaded 1080p/4K cloud rendering.">
+              <img src="assets/arch-video-as-code.jpg" alt="HyperFrames Pro Video-as-Code Architecture Pipeline diagram" loading="lazy" />
+              <span class="zoom-hint">Click to zoom</span>
+            </div>
+            <div class="arch-body">
+              <span class="badge badge-emerald">Architecture 01 · Core Engine</span>
+              <h3>Video-as-Code Compilation Pipeline</h3>
+              <p>
+                Instead of locking scenes inside a proprietary binary timeline, HyperFrames compiles every frame, animation, and audio cue into standard web assets backed by an AI agent loop.
+              </p>
+              <ul class="arch-points">
+                <li><strong>Input &amp; Storyboard:</strong> Natural-language scripts, brand kits, and verified research sources.</li>
+                <li><strong>AI Orchestration (Framey):</strong> Claude Sonnet 5.5 drives scene scripting, multi-level voiceovers, and bed mixing.</li>
+                <li><strong>Web Composition Engine:</strong> Standard <code>index.html</code>, <code>boards/</code>, CSS layouts, and GSAP timeline layers.</li>
+                <li><strong>Cloud Render Farm:</strong> Headless cloud renderers export 1080p/4K MP4, WebM, or MOV asynchronously.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Arch 2 -->
+          <article class="arch-card">
+            <div class="arch-media lightbox-trigger" data-title="Architecture 02 — HyperFrames Studio &lt;-&gt; Claude Code Handoff" data-caption="Both HyperFrames Studio and Claude Code operate on the exact same local ~/.hyperframes-studio/ web directory, enabling seamless visual + programmatic co-editing.">
+              <img src="assets/arch-claude-handoff.jpg" alt="HyperFrames Studio and Claude Code bidirectional handoff architecture diagram" loading="lazy" />
+              <span class="zoom-hint">Click to zoom</span>
+            </div>
+            <div class="arch-body">
+              <span class="badge badge-indigo">Architecture 02 · Hybrid Workflow</span>
+              <h3>Studio ↔ Claude Code Bidirectional Handoff</h3>
+              <p>
+                Because every project lives locally inside <code>~/.hyperframes-studio/</code> as plain web files, you can switch freely between visual click-and-change editing and terminal-driven Claude Code automation.
+              </p>
+              <ul class="arch-points">
+                <li><strong>Shared Project Hub:</strong> <code>index.html</code>, <code>hyperframes.json</code>, <code>STORYBOARD.md</code>, <code>CLAUDE.md</code>, and <code>AGENTS.md</code>.</li>
+                <li><strong>Plugin Context:</strong> Install via <code>/plugin</code> → <code>hyperframes</code> so Claude understands the rendering engine.</li>
+                <li><strong>Instant Live Sync:</strong> Code edits from Claude appear immediately in Studio or via <code>npx hyperframes preview</code>.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Arch 3 -->
+          <article class="arch-card">
+            <div class="arch-media lightbox-trigger" data-title="Architecture 03 — Cloud Render Offload vs. Local Lockup" data-caption="Benchmark across 20 iterations of a 10-minute video: local open-source rendering blocks CPU/GPU for 3.5–4.5 hours, while Pro cloud rendering preserves 100% of local billable coding capacity.">
+              <img src="assets/arch-cloud-render-roi.jpg" alt="Cloud Render Offload vs Local Hardware Lockup Architecture comparison diagram" loading="lazy" />
+              <span class="zoom-hint">Click to zoom</span>
+            </div>
+            <div class="arch-body">
+              <span class="badge badge-coral">Architecture 03 · Contractor ROI</span>
+              <h3>Cloud Render Offload vs. Local Hardware Lockup</h3>
+              <p>
+                For full-time developers and contractors producing client videos, local rendering is the primary throughput bottleneck. Offloading encodes to the cloud decouples video delivery from engineering work.
+              </p>
+              <ul class="arch-points">
+                <li><strong>Local Open-Source Bottleneck:</strong> 10–13 min per pass × 20 iterations = 3.5–4.5 hrs at 100% CPU/GPU saturation.</li>
+                <li><strong>Pro Cloud Render Queue:</strong> Queue a 1080p/4K MP4 render, close your laptop or pivot to another repo with zero local load.</li>
+                <li><strong>Unlimited Exports:</strong> Iterate freely without export caps once media assets are generated.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- All 12 Folder Images Explained -->
+    <section id="walkthrough">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Complete Visual Walkthrough · All 12 Folder Captures</div>
+          <h2>From First Prompt to 17.5-Minute Cloud Export</h2>
+          <p>
+            Every screenshot captured in this repository is documented below in production order—from initial onboarding and built-in training to HTML scene compilation, direct layer editing, multi-level voiceover synthesis, credit telemetry, and cloud rendering. Click any image to inspect full-resolution details.
+          </p>
+        </div>
+
+        <div class="filter-bar" role="tablist" aria-label="Filter walkthrough screenshots">
+          <button class="filter-btn active" data-filter="all">All Captures (12)</button>
+          <button class="filter-btn" data-filter="onboarding">Onboarding &amp; Storage (3)</button>
+          <button class="filter-btn" data-filter="code">HTML &amp; Layer Editing (3)</button>
+          <button class="filter-btn" data-filter="timeline">Timeline &amp; Audio (4)</button>
+          <button class="filter-btn" data-filter="cloud">Credits &amp; Cloud Render (2)</button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- 01 -->
+          <article class="shot-card" data-category="onboarding">
+            <div class="shot-thumb lightbox-trigger" data-title="01 · Onboarding &amp; First Video Studio UI (hyperframe-ui.jpeg)" data-caption="The HyperFrames home dashboard introduces a fill-in-the-blank prompt composer with 4 visual narrative beats (Hook, Proof, Turn, Call to action), project sidebar, Brand kits, Inspirations, and live credit counter.">
+              <img src="hyperframe-ui.jpeg" alt="HyperFrames Studio home screen with Your first video prompt builder" loading="lazy" />
+              <span class="step-pill">01 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-emerald">Onboarding</span>
+                <span class="shot-filename">hyperframe-ui.jpeg</span>
+              </div>
+              <h3>Prompt-Driven First Video Workspace</h3>
+              <p>
+                HyperFrames opens with a guided <strong>"Your first video"</strong> composer (<em>"Make a 45 second explainer of [how your product works]..."</em>) mapped directly to four visual story beats: <strong>Hook → Proof → Turn → Call to action</strong>. The left sidebar organizes projects, Brand kits, Inspirations, and displays remaining credits (4,866 credits left).
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Replaces blank-timeline friction with structured narrative templates sent straight to Framey.
+              </div>
+            </div>
+          </article>
+
+          <!-- 02 -->
+          <article class="shot-card" data-category="onboarding">
+            <div class="shot-thumb lightbox-trigger" data-title="02 · Built-In Interactive Academy (training-inside.jpeg)" data-caption="HyperFrames embeds Pit Crew Academy lessons directly inside the Studio UI, teaching motion choreography like cursor drags, hard cuts, and staggered tile pops alongside a live preview.">
+              <img src="training-inside.jpeg" alt="HyperFrames built-in Pit Crew Academy lesson inside the app" loading="lazy" />
+              <span class="step-pill">02 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-emerald">Onboarding</span>
+                <span class="shot-filename">training-inside.jpeg</span>
+              </div>
+              <h3>Built-In Motion Design Training ("Learn HyperFrames")</h3>
+              <p>
+                An interactive <strong>Lesson</strong> panel inside the desktop app walks creators through concrete motion vocabulary—such as <em>"a cursor drag, a hard cut, a staggered pop with overshoot"</em> and exact frame counts (12 tiles, one frame apart)—paired with an embedded video walkthrough and live stage preview.
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Teaches precise motion-design terminology so your prompts produce sharper agent choreography.
+              </div>
+            </div>
+          </article>
+
+          <!-- 03 -->
+          <article class="shot-card" data-category="onboarding">
+            <div class="shot-thumb lightbox-trigger" data-title="03 · Local Project Storage &amp; Source Verification (where Is the hyperframes located.jpeg)" data-caption="Popover showing local macOS project storage at ~/.hyperframes-studio (3.5 MB, 136 files) alongside the agent's editorial source-verification checklist.">
+              <img src="where%20Is%20the%20hyperframes%20located.jpeg" alt="HyperFrames local project path popover showing ~/.hyperframes-studio" loading="lazy" />
+              <span class="step-pill">03 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-indigo">Local Storage</span>
+                <span class="shot-filename">where Is the hyperframes located.jpeg</span>
+              </div>
+              <h3>Where Projects Live on Disk (<code>~/.hyperframes-studio</code>)</h3>
+              <p>
+                Clicking the project folder badge reveals the exact local path on macOS: <code>~/.hyperframes-studio</code> (3.5 MB across 136 files) with one-click <strong>Copy folder path</strong> and <strong>Show in Finder</strong> actions. Above it, Framey audits editorial claims and lists primary research sources to verify before rendering.
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Knowing the local folder path unlocks instant handoff to Claude Code, Git version control, or VS Code.
+              </div>
+            </div>
+          </article>
+
+          <!-- 04 -->
+          <article class="shot-card" data-category="code">
+            <div class="shot-thumb lightbox-trigger" data-title="04 · Video-as-Code HTML Compilation (hyperframes-uses-html.jpeg)" data-caption="After reviewing the storyboard breakdown, clicking 'Build the video' triggers Framey to write and copy posed HTML directly into index.html.">
+              <img src="hyperframes-uses-html.jpeg" alt="Framey copying posed HTML over the index file to build the video" loading="lazy" />
+              <span class="step-pill">04 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-emerald">Video as Code</span>
+                <span class="shot-filename">hyperframes-uses-html.jpeg</span>
+              </div>
+              <h3>HyperFrames Compiles Scenes Directly to HTML</h3>
+              <p>
+                Once the agent outlines the storyboard frames (UK numbers, AI took CI, Rider/Driver/Pilot, COBALTS, 90-day plan, CTA) and runs a 22-file validation pass (1,255 credits), clicking <strong>"Build the video"</strong> reveals the engine's core mechanism: <em>"I'm going to copy the posed HTML over the index file..."</em>
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Every scene is inspectable, diffable HTML/CSS/JS—not an opaque binary project file.
+              </div>
+            </div>
+          </article>
+
+          <!-- 05 -->
+          <article class="shot-card" data-category="code">
+            <div class="shot-thumb lightbox-trigger" data-title="05 · Integrated Live Editor &amp; Project File Tree (integrated-editor.jpeg)" data-caption="Full three-pane workspace showing Framey's live edits on the left, the animated J-Curve HTML canvas in the center, and the 29-file web project structure (AGENTS.md, CLAUDE.md, STORYBOARD.md, index.html, package.json) on the right.">
+              <img src="integrated-editor.jpeg" alt="HyperFrames integrated three-pane editor showing file tree and live J-curve canvas" loading="lazy" />
+              <span class="step-pill">05 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-emerald">Integrated IDE</span>
+                <span class="shot-filename">integrated-editor.jpeg</span>
+              </div>
+              <h3>Three-Pane Live Editor &amp; Standard Web File Tree</h3>
+              <p>
+                The full Studio layout pairs Framey's step-by-step edit log (<code>Added S05..S20</code>, <code>Recolored the root</code>, <code>Reading hf-agent-script.js</code>) with the live animated J-Curve canvas and an <strong>All files</strong> explorer exposing <code>boards/</code>, <code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>STORYBOARD.md</code>, <code>hyperframes.json</code>, <code>index.html</code>, and <code>package.json</code>.
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Native <code>CLAUDE.md</code> and <code>AGENTS.md</code> files ship inside every project for agentic interoperability.
+              </div>
+            </div>
+          </article>
+
+          <!-- 06 -->
+          <article class="shot-card" data-category="code">
+            <div class="shot-thumb lightbox-trigger" data-title="06 · Click-and-Change Direct Manipulation &amp; Layers (click-and-change-layers-ready.jpeg)" data-caption="Selecting any element on the canvas opens an inline 'Describe a change' prompt bar while the right-hand Layers tree exposes all 11 nested scene elements.">
+              <img src="click-and-change-layers-ready.jpeg" alt="Click and change inline prompt on headline with 11 layers shown in sidebar" loading="lazy" />
+              <span class="step-pill">06 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-indigo">Visual Control</span>
+                <span class="shot-filename">click-and-change-layers-ready.jpeg</span>
+              </div>
+              <h3>Click-and-Change Canvas &amp; DOM Layer Inspector</h3>
+              <p>
+                In <strong>Select</strong> mode, clicking the headline <em>"Why am I more optimistic than ever?"</em> attaches an inline AI prompt popover (<em>"Describe a change"</em>) scoped specifically to that DOM node. Simultaneously, the <strong>Layers</strong> tab lists all 11 structured layers under scene <code>S02</code> (<code>Dt</code>, <code>Ln</code>, <code>Sub</code>, <code>H</code>, <code>Big</code>, <code>Tc</code>, <code>Kick</code>, plus <code>Ic Plane</code>, <code>Ic Car</code>, <code>Ic Bike</code>).
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Bridges visual design precision with code-level DOM targeting—no manual CSS hunting required.
+              </div>
+            </div>
+          </article>
+
+          <!-- 07 -->
+          <article class="shot-card" data-category="timeline">
+            <div class="shot-thumb lightbox-trigger" data-title="07 · Active Agent Execution &amp; Locked Timeline (running-python-html.jpeg)" data-caption="Close-up of the multi-track timeline showing Pro (Sonnet 5.5) actively executing (Working 34s | Locked) while compiling clips S09, fx transitions, and 04:50 markers.">
+              <img src="running-python-html.jpeg" alt="Timeline locked while HyperFrames Pro Sonnet 5.5 agent compiles clips" loading="lazy" />
+              <span class="step-pill">07 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-coral">Execution</span>
+                <span class="shot-filename">running-python-html.jpeg</span>
+              </div>
+              <h3>Live Agent Execution &amp; Concurrency Lock</h3>
+              <p>
+                While the <strong>Pro (Sonnet 5.5)</strong> agent actively writes scripts and updates HTML/timeline definitions, HyperFrames displays a live <code>Working 34s · Locked</code> status pill to prevent race conditions between manual drag edits and programmatic clip placement (<code>S09</code>, <code>fx</code> badges, and section markers).
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Safe transactional locking guarantees agent code mutations never collide with manual timeline tweaks.
+              </div>
+            </div>
+          </article>
+
+          <!-- 08 -->
+          <article class="shot-card" data-category="timeline">
+            <div class="shot-thumb lightbox-trigger" data-title="08 · Full 17:30 Multi-Track Timeline Assembly (timeline-ready.jpeg)" data-caption="Wide view of the assembled 17:30 multi-track timeline across scenes S09–S20 with automated 11-step QA verification and a macOS Data Access permission notice.">
+              <img src="timeline-ready.jpeg" alt="Assembled 17:30 multi-track timeline with automated QA check" loading="lazy" />
+              <span class="step-pill">08 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-emerald">Timeline</span>
+                <span class="shot-filename">timeline-ready.jpeg</span>
+              </div>
+              <h3>17:30 Multi-Track Assembly &amp; Automated QA Pass</h3>
+              <p>
+                All 20 scenes (<code>S01</code>–<code>S20</code>) are sequenced across dual video tracks spanning <strong>17 minutes 30 seconds</strong> with colored chapter markers (<code>04:50</code>, <code>12:00</code>, <code>16:30</code>). Framey automatically runs an 11-step <em>"Checked the video"</em> verification pass. (Also captures macOS's standard Files &amp; Folders sandbox prompt if accessing external app data.)
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Scales cleanly beyond short clips into full long-form 17+ minute technical presentations.
+              </div>
+            </div>
+          </article>
+
+          <!-- 09 -->
+          <article class="shot-card" data-category="timeline">
+            <div class="shot-thumb lightbox-trigger" data-title="09 · Multi-Level Voiceover Synthesis (multi-level-sound-generate.jpeg)" data-caption="Framey's iterative activity log executing 'Used Hf generate voiceover' across 16+ narration segments, taking 28–42 seconds per batch.">
+              <img src="multi-level-sound-generate.jpeg" alt="Framey generating multi-level voiceovers across project segments" loading="lazy" />
+              <span class="step-pill">09 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-indigo">AI Audio</span>
+                <span class="shot-filename">multi-level-sound-generate.jpeg</span>
+              </div>
+              <h3>Multi-Level Automated Voiceover Generation</h3>
+              <p>
+                Rather than generating one brittle monolithic audio file, Framey inspects each scene and invokes <code>Used Hf generate voiceover</code> iteratively (28s–42s per segment across <code>+16 more</code> passes), producing discrete, time-aligned narration clips that match each section's exact pacing.
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Per-scene voiceover synthesis makes re-generating a single slide's narration fast and surgical.
+              </div>
+            </div>
+          </article>
+
+          <!-- 10 -->
+          <article class="shot-card" data-category="timeline">
+            <div class="shot-thumb lightbox-trigger" data-title="10 · Automated Audio Mixing &amp; Bed Sync (sorting-sound-out.jpeg)" data-caption="Framey completes 'Sorted out the sound' (6 steps, 1m 49s), aligning Bed1–Bed5 background audio tracks ducked to 22% volume under the animated CI pipeline slide.">
+              <img src="sorting-sound-out.jpeg" alt="Sorted out the sound with Bed1 to Bed5 audio tracks ducked to 22 percent" loading="lazy" />
+              <span class="step-pill">10 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-emerald">Audio Mix</span>
+                <span class="shot-filename">sorting-sound-out.jpeg</span>
+              </div>
+              <h3>Automated Audio Ducking &amp; Background Bed Sync</h3>
+              <p>
+                During the <strong>"Sorted out the sound"</strong> phase (6 steps, 1m 49s), Framey places staggered music beds (<code>Bed1</code> through <code>Bed5</code>) across two dedicated audio tracks, automatically ducking each bed to <code>22%</code> volume with smooth <code>fx</code> crossfades underneath the animated <em>"AI took continuous integration"</em> slide at <code>04:21 / 17:30</code>.
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Eliminates tedious manual audio ducking and bed alignment across long-form timelines.
+              </div>
+            </div>
+          </article>
+
+          <!-- 11 -->
+          <article class="shot-card" data-category="cloud">
+            <div class="shot-thumb lightbox-trigger" data-title="11 · Credit Consumption &amp; BYO API Key Fallback (credit-ends.jpeg)" data-caption="Real-world credit telemetry: generating 40+ HeyGen voice .wav and .transcript.json assets consumed 4,827 credits in 9m 36s, pausing with an option to buy credits or connect a HeyGen API key.">
+              <img src="credit-ends.jpeg" alt="Out of credits notice showing 4,827 credits used and HeyGen voice files generated" loading="lazy" />
+              <span class="step-pill">11 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-coral">Credit Economics</span>
+                <span class="shot-filename">credit-ends.jpeg</span>
+              </div>
+              <h3>Real-World Credit Burn &amp; BYO API Key Escape Hatch</h3>
+              <p>
+                Generating a full 17.5-minute multi-voice production created dozens of paired HeyGen <code>.wav</code> + <code>.transcript.json</code> files in 9m 36s, consuming <strong>4,827 credits</strong> and triggering the <strong>"Out of credits"</strong> pause state. HyperFrames preserves all work on the timeline and lets you either top up credits or plug in your own <strong>HeyGen API key</strong> to continue immediately.
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Budget ~3,120 credits per 10-min video (or ~4,800 for a 17.5-min full AI voiceover production).
+              </div>
+            </div>
+          </article>
+
+          <!-- 12 -->
+          <article class="shot-card" data-category="cloud">
+            <div class="shot-thumb lightbox-trigger" data-title="12 · Cloud Render Queue — 1080p MP4 in ~9 Minutes (cloud_render_time_9mimutes.jpeg)" data-caption="Export panel set to Render on: Cloud (1080p, MP4, 30 fps) with '1080p MP4 is in the line — About 9 min left', freeing the local Mac completely.">
+              <img src="cloud_render_time_9mimutes.jpeg" alt="HyperFrames Cloud Export panel showing 1080p MP4 render queued with about 9 minutes remaining" loading="lazy" />
+              <span class="step-pill">12 / 12</span>
+            </div>
+            <div class="shot-content">
+              <div class="shot-meta">
+                <span class="badge badge-emerald">Cloud Export</span>
+                <span class="shot-filename">cloud_render_time_9mimutes.jpeg</span>
+              </div>
+              <h3>Cloud Render Queue (~9 Min, Zero Local CPU Impact)</h3>
+              <p>
+                The <strong>Export</strong> drawer switches seamlessly between <em>This Mac</em> and <strong>Cloud</strong> rendering, supporting <code>1080p</code> / <code>4K</code>, <code>MP4</code> / <code>WebM</code> / <code>MOV</code>, and configurable frame rates (<code>30 fps</code>). Once queued (<em>"1080p MP4 is in the line — About 9 min left"</em>), you can keep coding or close your laptop entirely.
+              </p>
+              <div class="shot-takeaway">
+                <strong>Key takeaway:</strong> Unlimited cloud exports turn a 17.5-minute video encode into a zero-friction background task.
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Claude Code Handoff -->
+    <section id="claude-handoff">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Developer Handoff Workflow</div>
+          <h2>Continuing Your Studio Project in Claude Code</h2>
+          <p>
+            Because HyperFrames Studio saves every composition as a standard local web project, you can hand the folder directly to Claude Code for precision GSAP easing, layout refactors, or data-driven overlays. (Source: <a href="handoff-claude.md">handoff-claude.md</a>)
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <h3>Locate Project Directory</h3>
+            <p>Find the local project folder inside <span class="code-inline">~/.hyperframes-studio</span> (verify <span class="code-inline">index.html</span> and <span class="code-inline">hyperframes.json</span> exist).</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <h3>Launch Claude Code</h3>
+            <p>Open your terminal, <span class="code-inline">cd</span> directly into the project folder, and start your Claude Code session.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <h3>Install HyperFrames Plugin</h3>
+            <p>Run <span class="code-inline">/plugin</span> → <strong>Marketplaces</strong> → <strong>hyperframes</strong> → <strong>Enable auto-update</strong>, then verify with <span class="code-inline">/hyperframes:hyperframes</span>.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <h3>Prompt Programmatic Edits</h3>
+            <p>Ask Claude to tune GSAP animation easing, swap palettes, or inject SVG data charts directly in HTML/CSS/JS.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <h3>Instant Live Preview</h3>
+            <p>Check the live canvas back in HyperFrames Studio or run <span class="code-inline">npx hyperframes preview</span> in a separate terminal tab.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Economics & ROI Tables -->
+    <section id="economics">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Architecture &amp; ROI Benchmarks</div>
+          <h2>Pro Plan vs. Open-Source + fal.ai</h2>
+          <p>
+            How HyperFrames Pro compares against self-hosted open-source rendering for high-volume creators and contractors iterating on 10-minute client deliverables.
+          </p>
+        </div>
+
+        <div class="tables-wrap">
+          <div class="table-card">
+            <h3>Stack Comparison</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Open-Source + fal.ai</th>
+                  <th>HyperFrames Pro + Claude</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Asset Generation</strong></td>
+                  <td>Pay-as-you-go via fal.ai API</td>
+                  <td class="highlight-cell">Built-in 25,000 monthly credits</td>
+                </tr>
+                <tr>
+                  <td><strong>Rendering Engine</strong></td>
+                  <td>Local CPU/GPU hardware</td>
+                  <td class="highlight-cell">Offloaded cloud servers</td>
+                </tr>
+                <tr>
+                  <td><strong>Agentic Workflow</strong></td>
+                  <td>Manual API key juggling</td>
+                  <td class="highlight-cell">Consolidated Studio + CLI</td>
+                </tr>
+                <tr>
+                  <td><strong>Advanced Tools</strong></td>
+                  <td>Basic rendering</td>
+                  <td class="highlight-cell">Unlocks /reverse-any-video &amp; Video Match</td>
+                </tr>
+                <tr>
+                  <td><strong>Premium Models</strong></td>
+                  <td>External setup</td>
+                  <td class="highlight-cell">Seedance 2.5, MiniMax, HeyGen, ElevenLabs</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-card">
+            <h3>20-Iteration Benchmark (10-Minute Video)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Workflow</th>
+                  <th>Render Location</th>
+                  <th>Time / Pass</th>
+                  <th>Total (20 Passes)</th>
+                  <th>Hardware Impact</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Free Open-Source</strong></td>
+                  <td>Local CPU/GPU</td>
+                  <td>10–13 min</td>
+                  <td>~3.5 – 4.5 hrs</td>
+                  <td>100% machine lock-up</td>
+                </tr>
+                <tr>
+                  <td><strong>HyperFrames Pro</strong></td>
+                  <td class="highlight-cell">Cloud Servers</td>
+                  <td>~9 min async</td>
+                  <td class="highlight-cell">Background Queue</td>
+                  <td class="highlight-cell">Zero local impact</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deployment -->
+    <section id="deployment">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Static Hosting &amp; CI/CD</div>
+          <h2>Local Preview &amp; GitHub Pages Deployment</h2>
+          <p>
+            This documentation portal is zero-dependency static HTML/CSS/JS—automatically deployed to GitHub Pages on every push to <code>main</code> via <code>.github/workflows/static.yml</code>.
+          </p>
+        </div>
+
+        <div class="deploy-grid">
+          <div class="deploy-card">
+            <h3>1. Local Preview (Port 30080)</h3>
+            <p>Serve the repository locally on a 30k+ port to avoid port collisions and open in Google Chrome:</p>
+            <pre class="cmd-block">python3 -m http.server 30080
+open -a "Google Chrome" http://localhost:30080</pre>
+          </div>
+          <div class="deploy-card">
+            <h3>2. Automated GitHub Pages Deploy</h3>
+            <p>Push changes to <code>main</code> to trigger the Actions workflow (<code>actions/deploy-pages@v5</code>):</p>
+            <pre class="cmd-block">git add .
+git commit -m "Update HyperFrames Pro showcase"
+git push origin main</pre>
+          </div>
+          <div class="deploy-card">
+            <h3>3. Live Production Endpoint</h3>
+            <p>Once the GitHub Actions job finishes, the live site is published automatically at:</p>
+            <pre class="cmd-block">https://rifaterdemsahin.github.io/hyperframes-pro/</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>HyperFrames Pro Documentation &amp; Visual Architecture Showcase · Built as zero-dependency Video-as-Code reference.</div>
+      <div>
+        <a href="README.md">README.md</a> ·
+        <a href="handoff-claude.md">handoff-claude.md</a> ·
+        <a href="https://github.com/rifaterdemsahin/hyperframes-pro" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox-panel">
+      <div class="lightbox-bar">
+        <div class="lightbox-title" id="lbTitle">Image Preview</div>
+        <div class="lightbox-controls">
+          <button class="lb-btn" id="lbPrev" aria-label="Previous image">← Prev</button>
+          <button class="lb-btn" id="lbNext" aria-label="Next image">Next →</button>
+          <button class="lb-btn" id="lbClose" aria-label="Close modal">Esc ✕</button>
+        </div>
+      </div>
+      <div class="lightbox-img-wrap">
+        <img id="lbImg" src="" alt="" />
+      </div>
+      <div class="lightbox-caption" id="lbCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    // Category filtering
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const shotCards = document.querySelectorAll('.shot-card');
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        shotCards.forEach((card) => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Lightbox viewer for both architecture diagrams and all 12 captures
+    const triggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbTitle = document.getElementById('lbTitle');
+    const lbCaption = document.getElementById('lbCaption');
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = (index + triggers.length) % triggers.length;
+      const el = triggers[currentIndex];
+      const img = el.querySelector('img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lbTitle.textContent = el.dataset.title || img.alt;
+      lbCaption.textContent = el.dataset.caption || '';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    triggers.forEach((el, idx) => {
+      el.addEventListener('click', () => openLightbox(idx));
+    });
+
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lbPrev').addEventListener('click', () => openLightbox(currentIndex - 1));
+    document.getElementById('lbNext').addEventListener('click', () => openLightbox(currentIndex + 1));
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') openLightbox(currentIndex - 1);
+      if (e.key === 'ArrowRight') openLightbox(currentIndex + 1);
+    });
+  </script>
+</body>
+</html>
