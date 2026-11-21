@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HyperFrames Pro — Video-as-Code Architecture &amp; Studio Walkthrough</title>
-  <meta name="description" content="Complete visual walkthrough, architectural diagrams, Claude Code handoff guide, and cloud rendering ROI analysis for HyperFrames Pro." />
+  <title>HyperFrames Pro — Complete Guide, All Features &amp; Remotion + fal.ai Comparison</title>
+  <meta name="description" content="Complete step-by-step guide to HyperFrames Pro, full feature catalog, deep architectural &amp; cost comparison vs. Remotion + fal.ai combined, 4 architectural diagrams, and 12 annotated production captures." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -70,7 +70,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(12, 13, 16, 0.82);
+      background: rgba(12, 13, 16, 0.85);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
@@ -115,13 +115,13 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 1.25rem;
+      gap: 1.15rem;
       flex-wrap: wrap;
     }
 
     .nav-links a {
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       font-weight: 500;
       transition: color 0.15s ease;
     }
@@ -170,7 +170,7 @@
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1.12;
-      max-width: 900px;
+      max-width: 940px;
       margin-bottom: 1.15rem;
     }
 
@@ -181,9 +181,9 @@
     }
 
     .hero p.lead {
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       color: var(--text-muted);
-      max-width: 760px;
+      max-width: 800px;
       margin-bottom: 2rem;
     }
 
@@ -253,6 +253,7 @@
 
     .stat-value.accent-emerald { color: var(--teal); }
     .stat-value.accent-coral { color: var(--coral); }
+    .stat-value.accent-indigo { color: var(--indigo); }
 
     .stat-label {
       font-size: 0.84rem;
@@ -289,8 +290,129 @@
 
     .section-header p {
       color: var(--text-muted);
-      max-width: 740px;
+      max-width: 780px;
       font-size: 0.98rem;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      width: fit-content;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-emerald { background: var(--emerald-soft); color: var(--teal); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-coral { background: var(--coral-soft); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+    .badge-indigo { background: var(--indigo-soft); color: #a5b4fc; border: 1px solid rgba(129, 140, 248, 0.3); }
+
+    /* How-To Phase Cards */
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .phase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.55rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .phase-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .phase-card h3 {
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+    }
+
+    .phase-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .check-list li {
+      font-size: 0.86rem;
+      color: #d1d5db;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--emerald);
+      font-weight: 800;
+    }
+
+    /* Full Feature Catalog */
+    .feature-pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .pillar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .pillar-card h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .feature-list li {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .feature-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .feature-list strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.12rem;
     }
 
     /* Architecture Support Cards */
@@ -352,22 +474,6 @@
       gap: 0.9rem;
     }
 
-    .badge {
-      display: inline-block;
-      width: fit-content;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 600;
-      padding: 0.25rem 0.6rem;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .badge-emerald { background: var(--emerald-soft); color: var(--teal); border: 1px solid rgba(16, 185, 129, 0.3); }
-    .badge-coral { background: var(--coral-soft); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
-    .badge-indigo { background: var(--indigo-soft); color: #a5b4fc; border: 1px solid rgba(129, 140, 248, 0.3); }
-
     .arch-body h3 {
       font-size: 1.3rem;
       font-weight: 700;
@@ -400,6 +506,65 @@
       left: 0;
       color: var(--emerald);
       font-weight: 700;
+    }
+
+    /* Comparison Code & Decision Grids */
+    .code-compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.35rem;
+      margin-top: 1.5rem;
+    }
+
+    .code-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .code-card h3 {
+      font-size: 1.02rem;
+      font-weight: 700;
+    }
+
+    .code-card p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.35rem;
+      margin-top: 1.5rem;
+    }
+
+    .decision-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .decision-card.emerald-top { border-top: 3px solid var(--emerald); }
+    .decision-card.indigo-top { border-top: 3px solid var(--indigo); }
+    .decision-card.coral-top { border-top: 3px solid var(--coral); }
+
+    .decision-card h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    .decision-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
     }
 
     /* Filter Bar */
@@ -587,13 +752,13 @@
       display: inline-block;
       background: #0b0c10;
       border: 1px solid var(--border);
-      padding: 0.15rem 0.45rem;
+      padding: 0.12rem 0.42rem;
       border-radius: 5px;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       color: var(--teal);
     }
 
-    /* Comparison Tables */
+    /* Tables */
     .tables-wrap {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -608,6 +773,10 @@
       overflow-x: auto;
     }
 
+    .table-card.full-span {
+      margin-top: 1.5rem;
+    }
+
     .table-card h3 {
       font-size: 1.1rem;
       font-weight: 700;
@@ -617,19 +786,20 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.87rem;
+      font-size: 0.86rem;
     }
 
     th, td {
       text-align: left;
-      padding: 0.72rem 0.65rem;
+      padding: 0.75rem 0.7rem;
       border-bottom: 1px solid var(--border);
+      vertical-align: top;
     }
 
     th {
       color: var(--text-muted);
       font-weight: 600;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
@@ -640,6 +810,11 @@
 
     .highlight-cell {
       color: var(--teal);
+      font-weight: 600;
+    }
+
+    .indigo-cell {
+      color: #a5b4fc;
       font-weight: 600;
     }
 
@@ -673,8 +848,8 @@
       background: #0a0b0e;
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 0.85rem 1rem;
-      font-size: 0.8rem;
+      padding: 0.9rem 1rem;
+      font-size: 0.78rem;
       color: #e5e7eb;
       overflow-x: auto;
       line-height: 1.55;
@@ -791,7 +966,7 @@
         border-right: none;
         border-bottom: 1px solid var(--border);
       }
-      .gallery-grid {
+      .gallery-grid, .phase-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -805,10 +980,11 @@
         <span>HyperFrames Pro</span>
       </a>
       <nav class="nav-links">
-        <a href="#architecture">Architecture</a>
-        <a href="#walkthrough">Studio Walkthrough (12)</a>
-        <a href="#claude-handoff">Claude Handoff</a>
-        <a href="#economics">Economics &amp; ROI</a>
+        <a href="#how-to-use">How to Use</a>
+        <a href="#features">All Features</a>
+        <a href="#remotion-comparison">vs. Remotion + fal.ai</a>
+        <a href="#architecture">Architecture (4)</a>
+        <a href="#walkthrough">Walkthrough (12)</a>
         <a href="#deployment">Deployment</a>
       </nav>
     </div>
@@ -820,34 +996,423 @@
       <div class="container">
         <div class="pill">
           <span class="pill-dot"></span>
-          Video-as-Code Field Study &amp; Architecture Reference
+          Video-as-Code Playbook · Full Feature Catalog · Remotion + fal.ai Comparison
         </div>
-        <h1>HyperFrames Pro: <span>Programmatic Video Production</span> with AI Agents</h1>
+        <h1>HyperFrames Pro: <span>How to Use It</span> &amp; How It Compares to Remotion + fal.ai</h1>
         <p class="lead">
-          HyperFrames treats video as a standard web project—HTML, CSS, JavaScript, and GSAP animations—orchestrated by AI coding agents like Framey and Claude Code. Explore the 3 architectural blueprints and all 12 real-world production captures from building a 17.5-minute presentation end-to-end.
+          HyperFrames treats video as a standard web project—HTML, CSS, JavaScript, and GSAP animations—orchestrated by AI coding agents like Framey and Claude Code. Explore the complete 6-phase operational guide, every Pro feature, a deep architectural and cost comparison against <strong>Remotion + fal.ai combined</strong>, 4 technical diagrams, and all 12 real-world production captures.
         </p>
         <div class="hero-actions">
-          <a href="#walkthrough" class="btn btn-primary">Explore All 12 Captures</a>
-          <a href="#architecture" class="btn btn-secondary">View Architecture Diagrams</a>
-          <a href="https://github.com/rifaterdemsahin/hyperframes-pro" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub Repository ↗</a>
+          <a href="#how-to-use" class="btn btn-primary">Read Step-by-Step Guide</a>
+          <a href="#remotion-comparison" class="btn btn-secondary">HyperFrames vs. Remotion + fal.ai</a>
+          <a href="#features" class="btn btn-secondary">All Features</a>
+          <a href="#walkthrough" class="btn btn-secondary">12 Captures</a>
         </div>
 
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-value accent-emerald">25,000</div>
-            <div class="stat-label">Monthly media generation credits (£19 / $25 Pro Plan)</div>
+            <div class="stat-value accent-emerald">£19 / $25</div>
+            <div class="stat-label">Pro Plan monthly flat rate · 25,000 media credits included</div>
           </div>
           <div class="stat-card">
             <div class="stat-value accent-emerald">Unlimited</div>
-            <div class="stat-label">Cloud MP4 / WebM / MOV renders with zero local lockup</div>
+            <div class="stat-label">Cloud 1080p / 4K MP4, WebM &amp; MOV exports (0% CPU lockup)</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value accent-coral">~468 / 90s</div>
-            <div class="stat-label">Benchmark credit burn (~3,120 credits per 10-min video)</div>
+            <div class="stat-value accent-indigo">Remotion + fal.ai</div>
+            <div class="stat-label">$0–$100+/mo license + AWS Lambda + per-second fal.ai API</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value">12 + 3</div>
-            <div class="stat-label">12 annotated Studio captures &amp; 3 architectural diagrams</div>
+            <div class="stat-value accent-coral">12 + 4</div>
+            <div class="stat-label">12 annotated Studio captures &amp; 4 architectural diagrams</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Step-by-Step How to Use HyperFrames Pro -->
+    <section id="how-to-use">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Operational Playbook · 6 Phases</div>
+          <h2>How to Use HyperFrames Pro: Step-by-Step Guide</h2>
+          <p>
+            Follow this end-to-end workflow to go from a raw script or reference video to a multi-track, voiceover-synced, cloud-rendered 1080p/4K MP4 without fighting a traditional NLE timeline.
+          </p>
+        </div>
+
+        <div class="phase-grid">
+          <!-- Phase 1 -->
+          <article class="phase-card">
+            <div class="phase-head">
+              <span class="badge badge-emerald">Phase 01 · Setup</span>
+              <span class="mono" style="font-size:0.75rem;color:var(--text-dim);">~5 min</span>
+            </div>
+            <h3>Initialize Studio, Brand Kits &amp; 4-Beat Prompt</h3>
+            <p>
+              Launch the HyperFrames Desktop App and establish visual consistency before generating scenes so Framey inherits your typography and palette automatically.
+            </p>
+            <ul class="check-list">
+              <li>Configure a <strong>Brand Kit</strong> (colors, fonts, logo) or pick a starting template from the <strong>1,000+ Inspirations</strong> library.</li>
+              <li>Use the <strong>"Your first video"</strong> composer to structure your narrative into 4 beats: <strong>Hook → Proof → Turn → Call to action</strong>.</li>
+              <li>Optionally complete a 2-minute <strong>Pit Crew Academy</strong> lesson inside <em>Learn HyperFrames</em> to pick up precise motion vocabulary (e.g., <em>"staggered pop with overshoot"</em>).</li>
+              <li>Maintain up to <strong>20 active cloud projects</strong> simultaneously for multi-client work.</li>
+            </ul>
+          </article>
+
+          <!-- Phase 2 -->
+          <article class="phase-card">
+            <div class="phase-head">
+              <span class="badge badge-emerald">Phase 02 · Storyboard</span>
+              <span class="mono" style="font-size:0.75rem;color:var(--text-dim);">STORYBOARD.md</span>
+            </div>
+            <h3>Storyboard, Fact-Check &amp; Reverse-Engineer References</h3>
+            <p>
+              Before burning credits on animations or voiceovers, lock the narrative structure and visual style using HyperFrames' research and reference tools.
+            </p>
+            <ul class="check-list">
+              <li>Let Framey draft <code>STORYBOARD.md</code> and audit factual claims (Framey flags stats with <em>"verify before air"</em> notes and lists source citations).</li>
+              <li>Use <strong><code>/reverse-any-video</code></strong> to decompile an existing reference video into an editable HyperFrames project, or <strong>Video Match</strong> to clone a pacing/visual style.</li>
+              <li>Pull visuals via built-in <strong>image/footage search</strong> and clean up subjects with <strong>unlimited background removal</strong>.</li>
+            </ul>
+          </article>
+
+          <!-- Phase 3 -->
+          <article class="phase-card">
+            <div class="phase-head">
+              <span class="badge badge-indigo">Phase 03 · Build &amp; Edit</span>
+              <span class="mono" style="font-size:0.75rem;color:var(--text-dim);">index.html + GSAP</span>
+            </div>
+            <h3>Compile HTML Scenes &amp; Click-and-Change Layers</h3>
+            <p>
+              Click <strong>"Build the video"</strong> to watch Framey (powered by Claude Sonnet 5.5) compile posed HTML scenes into <code>index.html</code> and <code>boards/</code>.
+            </p>
+            <ul class="check-list">
+              <li>Wait for the <code>Working | Locked</code> timeline pill to finish—HyperFrames locks the timeline during agent writes to prevent race conditions.</li>
+              <li>Switch to <strong>Select</strong> mode and click any element on the video canvas to open the inline <em>"Describe a change"</em> prompt scoped directly to that DOM layer.</li>
+              <li>Use <strong>Draw</strong> to circle regions visually or <strong>Comment</strong> to leave timestamped feedback; inspect every nested element in the <strong>Layers</strong> panel.</li>
+            </ul>
+          </article>
+
+          <!-- Phase 4 -->
+          <article class="phase-card">
+            <div class="phase-head">
+              <span class="badge badge-indigo">Phase 04 · Audio &amp; QA</span>
+              <span class="mono" style="font-size:0.75rem;color:var(--text-dim);">.wav + .transcript.json</span>
+            </div>
+            <h3>Multi-Level Voiceover Synthesis &amp; Auto Audio Ducking</h3>
+            <p>
+              Automate narration and sound design per scene so you can regenerate a single slide's voiceover without re-recording the entire video.
+            </p>
+            <ul class="check-list">
+              <li>Framey invokes <code>Used Hf generate voiceover</code> (HeyGen / ElevenLabs) per scene, producing paired <code>.wav</code> and <code>.transcript.json</code> files for word-accurate subtitle sync.</li>
+              <li>Run the <strong>"Sorted out the sound"</strong> pass to align staggered music beds (<code>Bed1</code>–<code>Bed5</code>) ducked cleanly to <code>22%</code> volume with <code>fx</code> crossfades.</li>
+              <li>Verify captions in the <strong>Captions</strong> tab and let Framey complete its automated <em>"Checked the video"</em> multi-step QA pass.</li>
+            </ul>
+          </article>
+
+          <!-- Phase 5 -->
+          <article class="phase-card">
+            <div class="phase-head">
+              <span class="badge badge-coral">Phase 05 · Code Handoff</span>
+              <span class="mono" style="font-size:0.75rem;color:var(--text-dim);">~/.hyperframes-studio/</span>
+            </div>
+            <h3>Hand Off to Claude Code for Precision Engineering</h3>
+            <p>
+              When you need custom SVG charts, surgical GSAP easing curves, or Git version control, open the exact same folder in your terminal with Claude Code.
+            </p>
+            <ul class="check-list">
+              <li>Click the project folder pill in Studio → <strong>Copy folder path</strong> (stored under <code>~/.hyperframes-studio/</code> with <code>CLAUDE.md</code> &amp; <code>AGENTS.md</code> pre-installed).</li>
+              <li>In Claude Code, run <code>/plugin</code> → <strong>Marketplaces</strong> → <strong>hyperframes</strong> → <strong>Enable auto-update</strong>, then verify with <code>/hyperframes:hyperframes</code>.</li>
+              <li>Prompt direct HTML/CSS/GSAP edits and inspect them instantly in Studio or via <code>npx hyperframes preview</code>.</li>
+            </ul>
+          </article>
+
+          <!-- Phase 6 -->
+          <article class="phase-card">
+            <div class="phase-head">
+              <span class="badge badge-emerald">Phase 06 · Render &amp; Share</span>
+              <span class="mono" style="font-size:0.75rem;color:var(--text-dim);">Cloud Queue</span>
+            </div>
+            <h3>Manage Credits &amp; Queue Unlimited Cloud Renders</h3>
+            <p>
+              Keep your laptop free for billable work by offloading final encodes to HyperFrames' cloud render farm.
+            </p>
+            <ul class="check-list">
+              <li>Monitor credit burn (~468 credits / 90s; ~3,120 / 10-min video). If you hit <em>"Out of credits"</em> mid-project, top up or plug in a <strong>BYO HeyGen API key</strong> to continue immediately.</li>
+              <li>Open <strong>Export</strong> → select <strong>Render on: Cloud</strong> → choose <code>1080p</code> or <code>4K</code>, <code>MP4</code> / <code>WebM</code> / <code>MOV</code>, and <code>30 fps</code>.</li>
+              <li>Queue the render (~9 min for a 17.5-min 1080p MP4), close your laptop or switch projects, and send the <strong>Share</strong> link for Team Review.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Complete Feature Catalog -->
+    <section id="features">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Complete Feature Catalog</div>
+          <h2>Every Feature Included in HyperFrames Pro</h2>
+          <p>
+            A complete breakdown of every capability shipped in the HyperFrames Pro Plan (£19 / $25 per month), organized across AI orchestration, generative media, creative accelerators, and cloud delivery.
+          </p>
+        </div>
+
+        <div class="feature-pillars">
+          <!-- Pillar 1 -->
+          <div class="pillar-card">
+            <span class="badge badge-emerald">01 · AI Agent &amp; Code Engine</span>
+            <h3>Orchestration &amp; Video-as-Code</h3>
+            <ul class="feature-list">
+              <li><strong>Built-in Framey Agent (Claude Sonnet 5.5)</strong>Runs natively on your Pro credits to plan storyboards, write HTML/CSS/GSAP, and assemble multi-track timelines.</li>
+              <li><strong>Standard Web Project Output</strong>Compiles to plain <code>index.html</code>, <code>boards/</code>, <code>hyperframes.json</code>, <code>package.json</code>, <code>STORYBOARD.md</code>, <code>CLAUDE.md</code>, and <code>AGENTS.md</code>.</li>
+              <li><strong>Claude Code Plugin Integration</strong>First-class <code>/hyperframes</code> skill and <code>npx hyperframes preview</code> for seamless IDE/CLI co-editing.</li>
+              <li><strong>Click-and-Change Inline Prompting</strong>Click any element on the live canvas to issue a scoped natural-language DOM edit.</li>
+              <li><strong>Draw &amp; Comment Canvas Tools</strong>Sketch directly onto the frame or drop timestamped comments to guide agent revisions.</li>
+              <li><strong>Automated QA &amp; Concurrency Locks</strong>Multi-step <em>"Checked the video"</em> validation plus transactional timeline locks during agent builds.</li>
+            </ul>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="pillar-card">
+            <span class="badge badge-coral">02 · Generative Media &amp; Audio</span>
+            <h3>Models, Voice &amp; Sound Mixing</h3>
+            <ul class="feature-list">
+              <li><strong>25,000 Monthly Generation Credits</strong>Covers ~8 heavily AI-generated 10-minute videos per month (~468 credits per 90s benchmark).</li>
+              <li><strong>Premium Video &amp; Image Models</strong>Direct built-in access to <strong>Seedance 2.5</strong>, <strong>MiniMax</strong>, and <strong>HeyGen Video 1</strong> without juggling API keys.</li>
+              <li><strong>ElevenLabs &amp; HeyGen Voiceovers</strong>Per-scene multi-level voice synthesis outputting synced <code>.wav</code> + <code>.transcript.json</code> files.</li>
+              <li><strong>Automated Audio Ducking &amp; Beds</strong>Automatically places staggered music tracks (<code>Bed1</code>–<code>Bed5</code>) ducked to <code>22%</code> with <code>fx</code> crossfades.</li>
+              <li><strong>Unlimited Background Removal</strong>Zero-extra-cost subject isolation for talking heads, product shots, and overlays.</li>
+              <li><strong>Stock Search &amp; BYO Key Escape Hatch</strong>Built-in image/footage search plus BYO HeyGen API key support if monthly credits deplete.</li>
+            </ul>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="pillar-card">
+            <span class="badge badge-indigo">03 · Creative Accelerators</span>
+            <h3>Templates, Cloning &amp; Training</h3>
+            <ul class="feature-list">
+              <li><strong><code>/reverse-any-video</code></strong>Decompile any existing reference video into a fully editable HyperFrames HTML/GSAP project.</li>
+              <li><strong>Video Match</strong>Generate a brand-new video matching the pacing, rhythm, and visual style of a reference clip.</li>
+              <li><strong>1,000+ Inspirations Library</strong>Browse production-ready motion templates, transitions, and kinetic typography patterns.</li>
+              <li><strong>Brand Kits</strong>Centralize brand colors, fonts, and visual tokens across every generated scene.</li>
+              <li><strong>Built-in Pit Crew Academy</strong>Interactive lessons inside Studio teaching concrete motion choreography and prompt phrasing.</li>
+              <li><strong>Editorial Fact-Check Prompts</strong>Agent automatically flags statistics and compiles source-verification checklists before rendering.</li>
+            </ul>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="pillar-card">
+            <span class="badge badge-emerald">04 · Rendering &amp; Collaboration</span>
+            <h3>Cloud Farm, Timeline &amp; Teams</h3>
+            <ul class="feature-list">
+              <li><strong>Unlimited Cloud Exports</strong>No hard cap on finalized MP4, WebM, or MOV cloud renders—keep coding or close your laptop.</li>
+              <li><strong>1080p &amp; 4K Multi-Format Output</strong>Export in <code>1080p</code> or <code>4K</code>, <code>MP4</code> / <code>WebM</code> / <code>MOV</code> at configurable frame rates (e.g., <code>30 fps</code>).</li>
+              <li><strong>Dual Render Modes (Cloud + Local)</strong>Toggle freely between <em>Cloud</em> offload and <em>This Mac</em> local rendering.</li>
+              <li><strong>Multi-Track Timeline &amp; Layers Tree</strong>Visual video/audio tracks, chapter markers, Captions editor, and full DOM Layer hierarchy.</li>
+              <li><strong>Up to 20 Active Cloud Projects</strong>Run parallel client deliverables simultaneously without archiving active work.</li>
+              <li><strong>Team Review &amp; Share Links</strong>One-click share links for async client/team feedback directly on the rendered composition.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep Comparison: HyperFrames Pro vs. Remotion + fal.ai Combined -->
+    <section id="remotion-comparison">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Head-to-Head Stack Analysis</div>
+          <h2>HyperFrames Pro vs. Remotion + fal.ai Combined</h2>
+          <p>
+            Both stacks treat <strong>video as code</strong>, but they optimize for fundamentally different workflows: <strong>HyperFrames Pro</strong> is an all-in-one AI-native video studio with zero DevOps, while <strong>Remotion + fal.ai</strong> is a composable React + API engineering stack built for programmatic scale and custom SaaS pipelines.
+          </p>
+        </div>
+
+        <!-- Architectural Comparison Diagram -->
+        <article class="arch-card">
+          <div class="arch-media lightbox-trigger" data-title="Architecture 04 — HyperFrames Pro vs. Remotion + fal.ai Combined" data-caption="Side-by-side architectural comparison contrasting the consolidated HyperFrames Pro stack (Studio + Framey + HTML/GSAP + Built-in Cloud Farm) against the composable DIY Remotion + fal.ai stack (fal.ai Media APIs + React/TypeScript Engine + AWS Lambda/Cloud Run).">
+            <img src="assets/arch-hyperframes-vs-remotion-fal.jpg" alt="HyperFrames Pro vs Remotion and fal.ai combined architecture comparison diagram" loading="lazy" />
+            <span class="zoom-hint">Click to zoom</span>
+          </div>
+          <div class="arch-body">
+            <span class="badge badge-indigo">Architecture 04 · Stack Comparison</span>
+            <h3>All-in-One Agent Studio vs. Composable Engineering Stack</h3>
+            <p>
+              With <strong>HyperFrames Pro</strong>, asset generation, visual click-and-change editing, audio ducking, and cloud rendering live in one £19/$25 subscription. With <strong>Remotion + fal.ai</strong>, you wire together three separate systems—<code>@fal-ai/client</code> for media generation, Remotion (React/TypeScript) for deterministic frame rendering, and AWS Lambda / Cloud Run for serverless encoding.
+            </p>
+            <ul class="arch-points">
+              <li><strong>HyperFrames Pro:</strong> Zero infrastructure setup, built-in Framey agent + Claude Code handoff, flat predictable pricing.</li>
+              <li><strong>Remotion + fal.ai:</strong> Full React ecosystem, arbitrary API/database data binding, uncapped serverless scale on AWS/GCP.</li>
+              <li><strong>Licensing nuance:</strong> Remotion is free for ≤3 people; 4+ person companies require a commercial license ($25/seat Creators or $0.01/render with $100/mo min Automators).</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 15-Dimension Detailed Comparison Matrix -->
+        <div class="table-card full-span">
+          <h3>Comprehensive 15-Dimension Comparison Matrix</h3>
+          <table>
+            <thead>
+              <tr>
+                <th style="width:20%;">Dimension</th>
+                <th style="width:40%;">HyperFrames Pro (All-in-One)</th>
+                <th style="width:40%;">Remotion + fal.ai Combined (Composable DIY)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Core Paradigm</strong></td>
+                <td class="highlight-cell">AI-native Video-as-Code Studio (Agent-first + Visual + Code)</td>
+                <td class="indigo-cell">React-based programmatic video framework + external generative media API</td>
+              </tr>
+              <tr>
+                <td><strong>Rendering Tech Stack</strong></td>
+                <td>Standard HTML, CSS, JavaScript, GSAP animations, <code>index.html</code> + <code>boards/</code></td>
+                <td>React + TypeScript (<code>&lt;Composition&gt;</code>, <code>&lt;Sequence&gt;</code>, <code>useCurrentFrame()</code>, Tailwind/Three.js)</td>
+              </tr>
+              <tr>
+                <td><strong>Visual Editing UX</strong></td>
+                <td class="highlight-cell">Click-and-Change inline DOM prompts, Draw/Comment annotations, multi-track timeline</td>
+                <td>Remotion Studio provides scrubbing &amp; props inspector, but edits are primarily written in code</td>
+              </tr>
+              <tr>
+                <td><strong>AI Asset Generation</strong></td>
+                <td>Built-in 25,000 credits covering Seedance 2.5, MiniMax, HeyGen Video 1, ElevenLabs</td>
+                <td class="indigo-cell">Full fal.ai catalog (Kling 3.0, Veo 3.1, Seedance 2.5, MiniMax, Wan, Flux, ElevenLabs) via API</td>
+              </tr>
+              <tr>
+                <td><strong>Voiceover &amp; Audio Ducking</strong></td>
+                <td class="highlight-cell">Automated per-scene <code>.wav</code> + <code>.transcript.json</code> &amp; auto-ducked music beds (22%)</td>
+                <td>Manual pipeline: call ElevenLabs/fal TTS, run Whisper for timestamps, code volume curves in React</td>
+              </tr>
+              <tr>
+                <td><strong>Cloud Rendering &amp; DevOps</strong></td>
+                <td class="highlight-cell">Turnkey built-in Cloud Render Farm (1080p/4K, unlimited exports, zero AWS setup)</td>
+                <td>Self-managed Remotion Lambda (AWS IAM, S3, Lambda deployment) or Google Cloud Run</td>
+              </tr>
+              <tr>
+                <td><strong>Software &amp; API Pricing</strong></td>
+                <td class="highlight-cell">£19 / $25 per month flat (includes 25k credits + unlimited cloud renders)</td>
+                <td>Remotion: $0 (≤3 people) or $25/seat / $100/mo min (4+ people) + AWS Lambda (~$0.015–$0.021/min) + fal.ai pay-per-second</td>
+              </tr>
+              <tr>
+                <td><strong>fal.ai Model Unit Costs</strong></td>
+                <td>Abstracted into 25,000 monthly credits (~468 credits per 90s video; BYO HeyGen fallback)</td>
+                <td>Kling 3.0 (~$0.084–$0.14/s), Veo 3.1 (~$0.20–$0.40/s), Seedance 2.5 (~$0.31/s), Wan/MiniMax (~$0.05–$0.10/s)</td>
+              </tr>
+              <tr>
+                <td><strong>Cost: 8× 10-Min AI Videos/Mo</strong></td>
+                <td class="highlight-cell">~$25/mo total (fits within 25,000 credit quota + unlimited cloud renders)</td>
+                <td>~$40–$250+/mo in fal.ai media calls + ~$1–$3 AWS Lambda (+ $100+/mo if 4+ person company)</td>
+              </tr>
+              <tr>
+                <td><strong>Cost: 1,000 Personalized SaaS Videos/Mo</strong></td>
+                <td>Not designed for headless API batch webhooks (20 active cloud project cap)</td>
+                <td class="indigo-cell">~$15–$30 AWS Lambda + fal.ai usage (+ $100/mo Remotion Automators license for 4+ orgs)</td>
+              </tr>
+              <tr>
+                <td><strong>Reverse-Engineer Videos</strong></td>
+                <td class="highlight-cell">Built-in <code>/reverse-any-video</code> &amp; <strong>Video Match</strong></td>
+                <td>Not built-in; requires custom VLM analysis scripts + manual React reconstruction</td>
+              </tr>
+              <tr>
+                <td><strong>CI/CD &amp; Programmatic Scale</strong></td>
+                <td>Local Git + Claude Code CLI handoff; manual cloud export trigger in Studio</td>
+                <td class="indigo-cell">Native Node.js SDK, GitHub Actions CI/CD, webhook-triggered serverless fan-out</td>
+              </tr>
+              <tr>
+                <td><strong>Team Review &amp; Assets</strong></td>
+                <td class="highlight-cell">Built-in Share links, Brand Kits, 1,000+ Inspirations, unlimited background removal</td>
+                <td>Build your own review portal / CMS or integrate third-party storage (S3/Cloudflare R2)</td>
+              </tr>
+              <tr>
+                <td><strong>Learning Curve</strong></td>
+                <td class="highlight-cell">Low (minutes via prompt composer + Pit Crew Academy; optional Claude Code)</td>
+                <td>Medium–High (requires React, TypeScript, FFmpeg/codec awareness, AWS IAM &amp; fal.ai SDK)</td>
+              </tr>
+              <tr>
+                <td><strong>Lock-in &amp; Portability</strong></td>
+                <td>Low for code (plain HTML/CSS/JS in <code>~/.hyperframes-studio</code>); cloud renderer is hosted</td>
+                <td class="indigo-cell">Very low (source-available React repo running in your own AWS/GCP account)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Side-by-Side Workflow / Code Comparison -->
+        <div class="code-compare-grid">
+          <div class="code-card">
+            <span class="badge badge-emerald">HyperFrames Pro Workflow</span>
+            <h3>HTML/GSAP + Framey / Claude Code</h3>
+            <p>Prompt Studio or edit standard HTML/GSAP directly inside <code>~/.hyperframes-studio/</code>—audio ducking, voiceovers, and cloud rendering are handled automatically:</p>
+            <pre class="cmd-block"># 1. Generate storyboard &amp; HTML in Studio, then hand off:
+cd ~/.hyperframes-studio/delivery-pilots
+claude
+
+# 2. Load HyperFrames skill inside Claude Code:
+/hyperframes:hyperframes
+
+# 3. Direct prompt — edits index.html &amp; boards/ live:
+"Ease the J-curve stroke over 1.8s with power2.out,
+ sync S02 headline reveal to HeyGen transcript word 4,
+ and keep Bed1 ducked at 22%."
+
+# 4. Preview locally or click Cloud Export (1080p MP4):
+npx hyperframes preview</pre>
+          </div>
+
+          <div class="code-card">
+            <span class="badge badge-indigo">Remotion + fal.ai Workflow</span>
+            <h3>TypeScript Asset Pipeline + React Composition</h3>
+            <p>You explicitly orchestrate fal.ai API calls, store media URLs, compose deterministic React frames, and deploy AWS Lambda workers:</p>
+            <pre class="cmd-block">// 1. Generate B-roll via @fal-ai/client (pay-per-second):
+const clip = await fal.subscribe("fal-ai/kling-video/v3/pro", {
+  input: { prompt: "Delivery pilot cockpit HUD, 1080p" }
+});
+
+// 2. Compose deterministic frames in React (Remotion):
+export const Scene02 = ({ clipUrl }: { clipUrl: string }) =&gt; {
+  const frame = useCurrentFrame();
+  const opacity = interpolate(frame, [0, 30], [0, 1]);
+  return (
+    &lt;Sequence from={0} durationInFrames={300}&gt;
+      &lt;OffthreadVideo src={clipUrl} /&gt;
+      &lt;h1 style={{ opacity }}&gt;Why am I more optimistic?&lt;/h1&gt;
+    &lt;/Sequence&gt;
+  );
+};
+
+// 3. Render serverlessly on your AWS Lambda account:
+npx remotion lambda render src/index.ts Main out.mp4</pre>
+          </div>
+        </div>
+
+        <!-- Decision Matrix -->
+        <div class="decision-grid">
+          <div class="decision-card emerald-top">
+            <span class="badge badge-emerald">Choose HyperFrames Pro When…</span>
+            <h3>Solo Creators, Contractors &amp; Fast Turnaround</h3>
+            <p>
+              You want to produce <strong>1–10 polished YouTube videos, client explainers, or course modules per month</strong> with zero AWS DevOps, predictable £19/$25 pricing, built-in voiceover/ducking, visual click-and-change editing, and Claude Code escape hatches when you want custom code.
+            </p>
+          </div>
+
+          <div class="decision-card indigo-top">
+            <span class="badge badge-indigo">Choose Remotion + fal.ai When…</span>
+            <h3>SaaS Products, API Batching &amp; Custom Apps</h3>
+            <p>
+              You are building a <strong>data-driven video SaaS or marketing automation pipeline</strong> rendering hundreds or thousands of personalized videos via webhooks/CI, need full React/Three.js component reuse, or want unrestricted access to every new fal.ai model on pure pay-as-you-go billing.
+            </p>
+          </div>
+
+          <div class="decision-card coral-top">
+            <span class="badge badge-coral">Choose the Hybrid Power Stack When…</span>
+            <h3>Creative Prototyping + Production Scale</h3>
+            <p>
+              Use <strong>HyperFrames Pro + Claude Code</strong> to rapidly prototype storyboards, test motion language with <code>/reverse-any-video</code>, and ship editorial videos in hours—while running <strong>Remotion + fal.ai</strong> in production for automated, API-triggered customer videos at scale.
+            </p>
           </div>
         </div>
       </div>
@@ -858,16 +1423,16 @@
       <div class="container">
         <div class="section-header">
           <div class="section-eyebrow">Architectural Support Diagrams</div>
-          <h2>How HyperFrames Pro Works Under the Hood</h2>
+          <h2>Core HyperFrames Pro Architecture Blueprints</h2>
           <p>
-            Three technical architecture diagrams illustrating the Video-as-Code compilation pipeline, bidirectional HyperFrames Studio ↔ Claude Code handoff, and Cloud vs. Local rendering economics. Click any diagram to inspect full-screen.
+            Three additional technical blueprints illustrating the Video-as-Code compilation pipeline, bidirectional HyperFrames Studio ↔ Claude Code handoff, and Cloud vs. Local rendering economics. Click any diagram to inspect full-screen.
           </p>
         </div>
 
         <div class="arch-grid">
           <!-- Arch 1 -->
           <article class="arch-card">
-            <div class="arch-media lightbox-trigger" data-title="Architecture 01 — Video-as-Code Pipeline" data-caption="End-to-end flow from prompt & storyboard through Framey AI orchestration (Claude Sonnet 5.5, HeyGen/ElevenLabs voiceovers, audio beds) into HTML/CSS/JS + GSAP web composition and offloaded 1080p/4K cloud rendering.">
+            <div class="arch-media lightbox-trigger" data-title="Architecture 01 — Video-as-Code Pipeline" data-caption="End-to-end flow from prompt &amp; storyboard through Framey AI orchestration (Claude Sonnet 5.5, HeyGen/ElevenLabs voiceovers, audio beds) into HTML/CSS/JS + GSAP web composition and offloaded 1080p/4K cloud rendering.">
               <img src="assets/arch-video-as-code.jpg" alt="HyperFrames Pro Video-as-Code Architecture Pipeline diagram" loading="lazy" />
               <span class="zoom-hint">Click to zoom</span>
             </div>
@@ -1204,55 +1769,14 @@
       </div>
     </section>
 
-    <!-- Claude Code Handoff -->
-    <section id="claude-handoff">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow">Developer Handoff Workflow</div>
-          <h2>Continuing Your Studio Project in Claude Code</h2>
-          <p>
-            Because HyperFrames Studio saves every composition as a standard local web project, you can hand the folder directly to Claude Code for precision GSAP easing, layout refactors, or data-driven overlays. (Source: <a href="handoff-claude.md">handoff-claude.md</a>)
-          </p>
-        </div>
-
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-num">1</div>
-            <h3>Locate Project Directory</h3>
-            <p>Find the local project folder inside <span class="code-inline">~/.hyperframes-studio</span> (verify <span class="code-inline">index.html</span> and <span class="code-inline">hyperframes.json</span> exist).</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">2</div>
-            <h3>Launch Claude Code</h3>
-            <p>Open your terminal, <span class="code-inline">cd</span> directly into the project folder, and start your Claude Code session.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">3</div>
-            <h3>Install HyperFrames Plugin</h3>
-            <p>Run <span class="code-inline">/plugin</span> → <strong>Marketplaces</strong> → <strong>hyperframes</strong> → <strong>Enable auto-update</strong>, then verify with <span class="code-inline">/hyperframes:hyperframes</span>.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">4</div>
-            <h3>Prompt Programmatic Edits</h3>
-            <p>Ask Claude to tune GSAP animation easing, swap palettes, or inject SVG data charts directly in HTML/CSS/JS.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">5</div>
-            <h3>Instant Live Preview</h3>
-            <p>Check the live canvas back in HyperFrames Studio or run <span class="code-inline">npx hyperframes preview</span> in a separate terminal tab.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Economics & ROI Tables -->
     <section id="economics">
       <div class="container">
         <div class="section-header">
-          <div class="section-eyebrow">Architecture &amp; ROI Benchmarks</div>
-          <h2>Pro Plan vs. Open-Source + fal.ai</h2>
+          <div class="section-eyebrow">Contractor ROI &amp; Benchmarks</div>
+          <h2>Pro Plan vs. Open-Source HyperFrames + fal.ai</h2>
           <p>
-            How HyperFrames Pro compares against self-hosted open-source rendering for high-volume creators and contractors iterating on 10-minute client deliverables.
+            How HyperFrames Pro compares against self-hosted open-source HyperFrames for high-volume creators and contractors iterating on 10-minute client deliverables.
           </p>
         </div>
 
@@ -1368,7 +1892,7 @@ git push origin main</pre>
 
   <footer>
     <div class="container footer-inner">
-      <div>HyperFrames Pro Documentation &amp; Visual Architecture Showcase · Built as zero-dependency Video-as-Code reference.</div>
+      <div>HyperFrames Pro Documentation, Complete Feature Reference &amp; Remotion + fal.ai Comparison.</div>
       <div>
         <a href="README.md">README.md</a> ·
         <a href="handoff-claude.md">handoff-claude.md</a> ·
@@ -1415,7 +1939,7 @@ git push origin main</pre>
       });
     });
 
-    // Lightbox viewer for both architecture diagrams and all 12 captures
+    // Lightbox viewer for all 4 architecture diagrams and all 12 captures
     const triggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
     const lightbox = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
